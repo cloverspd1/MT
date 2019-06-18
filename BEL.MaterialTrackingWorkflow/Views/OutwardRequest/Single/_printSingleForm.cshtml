@@ -1,0 +1,717 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.OutwardRequest
+@using BEL.CommonDataContract
+@using BEL.MaterialTrackingWorkflow.Models.Common
+@using BEL.MaterialTrackingWorkflow.Models.Master
+@using Newtonsoft.Json;
+@model  OutwardSingleContract
+
+@{
+    OutwardSingleContract contract = Model as OutwardSingleContract;
+    OutwardSingleRequestForm form = contract.Forms.FirstOrDefault() as OutwardSingleRequestForm;
+    ViewBag.Title = "Outward Single Request";
+    TesterSingleSection testerSection = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(OutwardSectionName.TESTERSINGLESECTION)) as TesterSingleSection;
+    HODSingleSection hodSection = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(OutwardSectionName.HODSINGLESECTION)) as HODSingleSection;
+    RecipientSingleSection recipientSection = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(OutwardSectionName.RECIPIENTSINGLESECTION)) as RecipientSingleSection;
+    InwardDetail inwardDetails = testerSection.InwardDetails;
+}
+<style>
+    .LabelPadding {
+        padding-top: 6px;
+    }
+
+    .bold {
+        font-weight: bold;
+        padding-top: 6px;
+    }
+
+    .borderRight {
+        border-right: 1px solid black;
+    }
+
+    .borderLeft {
+        border-left: 1px solid black;
+    }
+</style>
+<div class="hidden">
+    <div id="divprint">
+        <!DOCTYPE HTML>
+
+        <html>
+        <head>
+            <title>Print Outward Single Form</title>
+        </head>
+        <body>
+
+            <div id="printContent" class="col-md-12">
+                <style type="text/css">
+                    .modal-dialog {
+                        width: 75% !important;
+                    }
+                </style>
+                @if ((testerSection != null && testerSection.Status == "Sent Back") && (hodSection != null && hodSection.Action == "Approve"))
+                {
+                    @Html.Partial("../OutwardRequest/Single/_printDeclaration")
+                }
+                else
+                {
+                    <div id="card1" class="col-sm-12 card" style="border:1px solid black">
+                        <div class="row borderBottom">
+                            <div class="col-sm-6" style="vertical-align:middle; padding-top:2px; padding-bottom:2px;">
+
+
+                                <img id="logo" src="~/images/bajaj_logo.jpg" width="100%" />
+
+
+                            </div>
+                            <div class="col-sm-6">
+                            </div>
+
+                        </div>
+
+                        <div class="row bordertop">
+                            <div class="col-sm-6">
+                                <div class="col-sm-5">
+                                    @Html.Label("Title :", new { @class = "bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold nowordwrap">
+                                        Outward Single Request
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row bordertop">
+                            <div class="col-sm-6">
+                                <div class="col-sm-12">
+                                    @Html.Label("Inward Details", new { @class = "bold" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                            </div>
+                        </div>
+                        <div class="row bordertop">
+                            <div class="col-sm-6 rightBorder">
+                                <div class="col-sm-5">
+                                    @Html.Label("Inward Id :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold nowordwrap">
+                                        @if (testerSection != null && testerSection.InwardId != null)
+                                        {
+                                            @testerSection.InwardId
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Inward Date :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold nowordwrap">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.InwardDate))
+                                        {
+                                            @inwardDetails.InwardDate
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row bordertop">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    @Html.Label("Inward Details Entered By Receipient 1 : ", new { @class = "bold" })
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="bold" style="word-wrap: break-word;">
+                                        @if (testerSection != null && !string.IsNullOrWhiteSpace(testerSection.ProposedByAlise))
+                                        {
+                                            @inwardDetails.ProposedByAlise
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row bordertop">
+                            @*<div class="col-sm-9 col-xs-10 col-md-6">
+                            *@
+                            <div class="col-sm-6 rightBorder">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Sender Name :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold" style="word-wrap: break-word;">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.SenderName))
+                                        {
+                                            @inwardDetails.SenderName
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Sender Location :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold" style="word-wrap: break-word;">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.Location))
+                                        {
+                                            @inwardDetails.Location
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row bordertop">
+                            <div class="col-sm-6">
+                                <div class="col-sm-5">
+                                    @Html.Label("Particulars :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.Particulars))
+                                        {
+                                            @inwardDetails.Particulars
+                                        }
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6"></div>
+                        </div>
+
+                        <div class="row bordertop">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    @Html.Label("Inward Details Entered By Receipient 2 : ", new { @class = "bold" })
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="bold" style="word-wrap: break-word;">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.Recipient2Alise))
+                                        {
+                                            @inwardDetails.Recipient2Alise
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row bordertop">
+                            <div class="col-sm-6 rightBorder">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Project Name :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold" style="word-wrap: break-word;">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.ProjectName))
+                                        {
+                                            @inwardDetails.ProjectName
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Tracking Location :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold" style="word-wrap: break-word;">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.MaterialLocation))
+                                        {
+                                            @inwardDetails.MaterialLocation
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row bordertop">
+                            <div class="col-sm-6 rightBorder">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Material Type :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7 ">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.TypeofMaterial))
+                                        {
+                                            @inwardDetails.TypeofMaterial
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Material Category:", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.MaterialCategory))
+                                        {
+                                            @inwardDetails.MaterialCategory
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row bordertop">
+                            <div class="col-sm-6 rightBorder">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("BU :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.BUName))
+                                        {
+                                            @inwardDetails.BUName
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Product Category :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+                                        @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.ProductCategory))
+                                        {
+                                            @inwardDetails.ProductCategory
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row bordertop borderBottom">
+                            @*<div class="col-sm-6 col-md-6 rightBorder">
+                                <div class="form-group">
+                                <div class="col-md-5">
+                                @Html.Label("Particulars :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-md-7">
+                                <div class="LabelPadding" style="word-wrap: break-word;">
+                                @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.Recipient2Particulars))
+                                {
+                                @inwardDetails.Recipient2Particulars
+                                }
+                                </div>
+                                </div>
+                                </div>
+                                </div>*@
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="col-sm-5">
+                                        @Html.Label("Material Handover:", new { @class = "LabelPadding bold" })
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="bold" style="word-wrap: break-word;">
+                                            @if (inwardDetails != null && !string.IsNullOrWhiteSpace(inwardDetails.MaterialHandedoverto))
+                                            {
+                                                @inwardDetails.MaterialHandedoverto
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="card2" class="col-sm-12 card bordertop" style="border:1px solid black">
+                        <div class="row bordertop">
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    @Html.Label("Outward Details", new { @class = "bold" })
+                                </div>
+
+                                <div class="col-sm-7">
+                                    <div class="LabelPadding"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row bordertop">
+                            <div class="col-sm-12">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Outward Details entered by :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold" style="word-wrap: break-word;">
+
+                                        @*<div class="col-sm-3 col-xs-2 col-md-6 text-left">
+                                        *@
+
+                                        @if (testerSection != null && testerSection.ProposedByName != null)
+                                        {
+                                            @testerSection.ProposedByName
+                                        }
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row bordertop">
+                            <div class="col-sm-6 rightBorder">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Outward Id :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold nowordwrap">
+                                        @if (testerSection != null && testerSection.OutwardId != null)
+                                        {
+                                            @testerSection.OutwardId
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Outward Date :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold" style="word-wrap: break-word;">
+
+                                        @*<div class="col-sm-3 col-xs-2 col-md-6 text-left">
+                                        *@
+
+                                        @if (testerSection != null && testerSection.OutwardDate != null)
+                                        {
+                                            @testerSection.OutwardDate
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row bordertop">
+                            <div class="col-sm-6 rightBorder">
+                                <div class="col-sm-5">
+                                    @Html.Label("Recepient 1 Particulars :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+                                        @if (testerSection != null && testerSection.Particulars != null)
+                                        {
+                                            @testerSection.Particulars
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-sm-5">
+                                    @Html.Label("Recepient 2 Particulars :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+                                        @if (testerSection != null && testerSection.Recipient2Particulars != null)
+                                        {
+                                            @testerSection.Recipient2Particulars
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row bordertop borderBottom">
+                            <div class="col-sm-6">
+                                <div class="col-sm-5">
+                                    @Html.Label("Comments :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+
+                                        @*<div class="col-sm-3 col-xs-2 col-md-6 text-left">
+                                        *@
+
+                                        @if (testerSection != null && testerSection.CurrentApprover.Comments != null)
+                                        {
+                                            @testerSection.CurrentApprover.Comments
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6"></div>
+                        </div>
+                    </div>
+                    <div id="card3" class="col-sm-12 card bordertop" style="border:1px solid black;margin-top:15px;">
+                        <div class="row bordertop">
+                            <div class="col-sm-6 rightBorder">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("HOD Section :", new { @class = "bold" })
+                                </div>
+
+                                <div class="col-sm-7">
+                                    <div class="LabelPadding"></div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-sm-5">
+                                    @Html.Label("Approved By :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7 ">
+                                    <div class="bold" style="word-wrap: break-word;">
+
+                                        @if (hodSection != null && hodSection.CurrentApprover.ApproveByName != null)
+                                        {
+                                            @hodSection.CurrentApprover.ApproveByName
+                                        }
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row bordertop borderBottom">
+
+                            <div class="col-sm-6 rightBorder">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Approved Date :", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="bold" style="word-wrap: break-word;">
+                                        @if (hodSection != null && hodSection.CurrentApprover != null && hodSection.CurrentApprover.ApprovalDate != null)
+                                        {
+                                            @hodSection.CurrentApprover.ApprovalDate.Value.ToShortDateString()
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Approver Comments :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7 ">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+
+                                        @*<div class="col-sm-3 col-xs-2 col-md-6 text-left">
+                                        *@
+
+                                        @if (hodSection != null && hodSection.CurrentApprover.Comments != null)
+                                        {
+                                            @hodSection.CurrentApprover.Comments
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="card5" class="col-sm-12 card bordertop" style="border:1px solid black;">
+                        <div class="row bordertop">
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    @Html.Label("Signature of Admin", new { @class = "LabelPadding bold" })
+                                </div>
+                                <div class="col-sm-7" style="height:55px;">
+                                    <div class="LabelPadding" style="word-wrap: break-word;height:55px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="card4" class="col-sm-12 card bordertop" style="border:1px solid black;">
+                        <div class="row bordertop">
+                            <div class="col-sm-12">
+
+                                <div class="col-sm-6">
+                                    @Html.Label("Outward Details Entered By Recipient :", new { @class = "LabelPadding bold" })
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="bold" style="word-wrap: break-word;">
+                                        @if (recipientSection != null && recipientSection.CurrentApprover.ApproverName != null)
+                                        {
+                                            @recipientSection.CurrentApprover.ApproverName
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row bordertop">
+                            <div class="col-sm-6 rightBorder">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("To Location/Address :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7 ">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+
+                                        @*<div class="col-sm-3 col-xs-2 col-md-6 text-left">
+                                        *@
+
+                                        @if (recipientSection != null && recipientSection.LocationAddress != null)
+                                        {
+                                            @recipientSection.LocationAddress
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("To Person :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7 ">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+
+                                        @*<div class="col-sm-3 col-xs-2 col-md-6 text-left">
+                                        *@
+
+                                        @if (testerSection != null && !string.IsNullOrWhiteSpace(testerSection.RecipientName))
+                                        {
+                                            @testerSection.RecipientName
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row bordertop borderBottom">
+                            <div class="col-sm-6 rightBorder">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("Courier Details :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7 ">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+
+                                        @if (recipientSection != null && recipientSection.CourierDetails != null)
+                                        {
+                                            @recipientSection.CourierDetails
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <div class="col-sm-5">
+                                    @Html.Label("AWB/ Delivered To :", new { @class = "LabelPadding" })
+                                </div>
+                                <div class="col-sm-7 ">
+                                    <div class="LabelPadding" style="word-wrap: break-word;">
+
+                                        @if (recipientSection != null && recipientSection.AWDNo != null)
+                                        {
+                                            @recipientSection.AWDNo
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    if (recipientSection.CurrentApprover.Approver != ViewBag.UserID)
+                    {
+                        <div class="row" style="page-break-before:always;">
+                            <div class="col-sm-12">
+                                @Html.Partial("../OutwardRequest/Single/_printDeclaration")
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </body>
+    </html>
+</div>
+</div>
+<div class="modal fade" id="printModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="fa fa-print"></i> Print Outward Single Form</h4>
+
+            </div>
+            <div class="modal-body">
+                <p><span class="text-danger text-default-light">@Html.ResourceValue("Text_Print", ResourceNames.Common)</span></p>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered someTable">
+
+                        <thead>
+                            <tr>
+                                <th>Attachment Name</th>
+                                <th>Print / Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Outward Single Form
+                                </td>
+                                <td>
+
+                                    <a onclick="Print(this);" data-action="6" data-sendbackto="" data-sendtorole="" style="cursor:pointer !important">Print</a>&nbsp; | &nbsp;
+                                    <a onclick="PrintPreview(this);" data-action="6" data-sendbackto="" data-sendtorole="" style="cursor:pointer !important">Preview</a>
+                                </td>
+                            </tr>
+                            @foreach (FileDetails item in testerSection.Files)
+                            {
+                                <tr>
+                                    <td>@item.FileName</td>
+                                    <td>
+                                        <a data-url="@item.FileURL" onclick="DownloadUploadedFile(this);" style="cursor:pointer !important"> Download and Print </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

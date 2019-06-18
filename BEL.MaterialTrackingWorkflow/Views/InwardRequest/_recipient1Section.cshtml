@@ -1,0 +1,340 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.InwardRequest
+@using BEL.CommonDataContract
+@using BEL.MaterialTrackingWorkflow.Models.Common
+@using BEL.MaterialTrackingWorkflow.Models.Master
+
+@model Recipient1Section
+<script type="text/javascript">
+
+</script>
+<div id="divrecipient1Section">
+
+    @using (Ajax.BeginForm("SaveRecipient1DetailSection", "InwardRequest", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "loading",
+        OnFailure = "OnFailure",
+        OnSuccess = "OnSuccess",
+        OnBegin = "BeginClient"
+    }, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(m => m.ListDetails[0].ItemId)
+        @Html.HiddenFor(m => m.ListDetails[0].ListName)
+        @Html.HiddenFor(m => m.SectionName)
+        @Html.HiddenFor(m => m.ActionStatus)
+        @Html.HiddenFor(m => m.Status)
+        @Html.HiddenFor(m => m.WorkflowStatus)
+        @Html.HiddenFor(m => m.OutwardIdOld)
+        @Html.Partial("_CurrentApprover", Model.CurrentApprover ?? new ApplicationStatus())
+        @Html.Partial("_ApproversList", Model.ApproversList)
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        @Html.LabelFor(m => m.ProposedBy, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @(string.IsNullOrEmpty(Model.ProposedByName) ? ViewBag.UserName : Model.ProposedByName)
+                            @Html.Hidden("InwardDetailsEnteredBy", string.IsNullOrEmpty(Model.ProposedBy) ? (string)ViewBag.UserID : Model.ProposedByName)
+                            @Html.Hidden("InwardDetailsEnteredByName", string.IsNullOrEmpty(Model.ProposedByName) ? (string)ViewBag.UserName : Model.ProposedByName)
+                            @Html.Hidden("ProposedByAlise", Model.ProposedByName)
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        @Html.LabelFor(m => m.RequestDate, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @(Model.RequestDate)
+                            @Html.Hidden("RequestDate", Model.RequestDate)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.NewInward, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.RadioButtonFor(m => m.NewInward, "True", new { @Id = "NewInward" })
+                            <label for="NewInward">New Inward</label>
+                            @Html.RadioButtonFor(m => m.NewInward, "False", new { @Id = "InwardAgainstOutward" })
+                            <label for="InwardAgainstOutward">Inward Against Outward</label>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.NewInward, ResourceNames.InwardRequest)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group" id="InwOutwardDiv">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.OutwardId, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @if (Model.IsActive)
+                            {
+                                <span>
+                                    @Html.DropDownListFor(m => m.OutwardId, new SelectList(new List<KeyValuePair<string, string>>()), "Select", new { @class = "form-control", @data_selected = Model.OutwardId })
+                                </span>
+                                @Html.ValidationMessageFor(m => m.OutwardId, ResourceNames.InwardRequest)
+                            }
+                            else
+                            {
+                                @Model.OutwardId
+                            }
+                            @*@Html.HiddenFor(m => m.OutwardId)*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        if (!string.IsNullOrEmpty(Model.InwardID) && Model.InwardID != "View")
+        {
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">
+                            @Html.LabelFor(m => m.InwardID, ResourceNames.InwardRequest)
+                        </label>
+                        <div class="col-md-8 ">
+                            <div class="form-control noborder">
+                                <span class="text-danger" id="ReferenceNo">
+                                    <b>
+                                        @Html.DisplayFor(m => m.InwardID, ResourceNames.InwardRequest)
+                                        @Html.HiddenFor(m => m.InwardID)
+                                        @Html.HiddenFor(m => m.Title)
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="col-md-4 control-label">
+                            @Html.LabelFor(m => m.Status, ResourceNames.InwardRequest)
+                        </label>
+                        <div class="col-md-8 ">
+                            <div class="form-control noborder">
+                                <span class="text-danger" id="Status">
+                                    <b>
+                                        @(string.IsNullOrEmpty(Model.WorkflowStatus) ? Html.ResourceValue("Text_New", ResourceNames.Common) : Model.WorkflowStatus)
+                                    </b>
+                                </span>
+                                @Html.HiddenFor(m => m.Status)
+                                @Html.HiddenFor(m => m.WorkflowStatus)
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.TypeofMaterial, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.DropDownListFor(m => m.TypeofMaterial, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.TYPEOFMATERIALMASTER)) as TypeofMaterialMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.TypeofMaterial })
+                            @Html.ValidationMessageFor(m => m.TypeofMaterial, ResourceNames.InwardRequest)
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.SenderName, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.TextBoxFor(m => m.SenderName, new { maxLength = 255, @class = "form-control", data_toggle = "tooltip", title = "Max 255 characters" })
+                            @Html.ValidationMessageFor(m => m.SenderName, ResourceNames.InwardRequest)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.Location, ResourceNames.InwardRequest)
+
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.TextAreaFor(m => m.Location, new { maxLength = 1000, @class = "form-control textarea-height", @rows = "4", @cols = "40", data_toggle = "tooltip", title = "Max 1000 characters" })
+                            @Html.ValidationMessageFor(m => m.Location, ResourceNames.InwardRequest)
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.CourierNameHandDelivery, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8">
+                        <div class="form-control noborder">
+                            @Html.DropDownListFor(m => m.CourierNameHandDelivery, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.COURIERTYPEMASTER)) as CourierTypeMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.CourierNameHandDelivery })
+                            @Html.ValidationMessageFor(m => m.CourierNameHandDelivery, ResourceNames.InwardRequest)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.AWBNameofdeliveryperson, ResourceNames.InwardRequest)
+
+                    </label>
+                    <div class="col-md-8">
+                        <div class="form-control noborder multiselect-two">
+                            @Html.TextBoxFor(m => m.AWBNameofdeliveryperson, new { maxLength = 255, @class = "form-control", data_toggle = "tooltip", title = "Max 255 characters" })
+                            @Html.ValidationMessageFor(m => m.AWBNameofdeliveryperson, ResourceNames.InwardRequest)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.Particulars, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.TextAreaFor(m => m.Particulars, new { maxLength = 1000, @class = "form-control textarea-height", @rows = "4", @cols = "40", data_toggle = "tooltip", title = "Max 1000 characters" })
+                            @Html.ValidationMessageFor(m => m.Particulars, ResourceNames.InwardRequest)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        Note: This information will be submitted to Recipient 2 :
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.DisplayFor(m => m.Recipient2Alise)
+
+                            @Html.HiddenFor(m => m.Recipient2)
+                            @Html.HiddenFor(m => m.Recipient2Alise)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.Recipient1Attachment, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <span class="text-danger text-default-light">
+                            Note: (Max. up to 2MB per file and you can upload maximum 10 files.)
+                        </span>
+                        <div id="AttachmentInwardRecipient1" data-appname="@SiteURLs.MTSITEURL">
+                        </div>
+                        @Html.TextBoxFor(m => m.Recipient1Attachment, new { @class = "notvisible" })
+                        @Html.ValidationMessageFor(m => m.Recipient1Attachment, ResourceNames.InwardRequest)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+            </div>
+        </div>
+
+
+    }
+
+</div>
+@*<script type="text/javascript">
+
+        var onPlantadding = false, onPlantremoving = false;
+        function OutwardIdAdded(ele, id, text, items) {
+            if (!onPlantremoving && !onPlantadding) {
+                onPlantadding = true;
+                //$("#OutwardId").tokenInput("clear");
+                $("#OutwardId").tokenInput("add", { id: decodeURIComponent(text), name: decodeURIComponent(text) });
+                $("#OutwardId").val(id).change();
+                if (items != undefined) {
+                    var item = JSON.parse(items);
+                    $("#TypeofMaterial").val(item.TypeofMaterial);
+                    $("#SenderName").val(item.SenderName);
+                    $("#Location").val(item.Location);
+                    $("#CourierNameHandDelivery").val(item.CourierDetails);
+                    $("#AWBNameofdeliveryperson").val(item.AWDNo);
+                    $("#Particulars").val(item.Particulars);
+                }
+            }
+            onPlantadding = false;
+
+            if (items != undefined) {
+                var item = JSON.parse(items);
+                $("#TypeofMaterial").val(item.TypeofMaterial);
+                $("#SenderName").val(item.SenderName);
+                $("#Location").val(item.Location);
+                $("#CourierNameHandDelivery").val(item.CourierDetails);
+                $("#AWBNameofdeliveryperson").val(item.AWDNo);
+                $("#Particulars").val(item.Particulars);
+            }
+        }
+        function OutwardIdRemoved(ele) {
+            if (!onPlantadding && !onPlantremoving) {
+                onPlantremoving = true;
+                $("#OutwardId").tokenInput("clear");
+                //$("#CodeNumber").val("").change();
+                $("#OutwardId").val("");
+            }
+            onPlantremoving = false;
+            $("#TypeofMaterial").val("");
+            $("#SenderName").val("");
+            $("#Location").val("");
+            $("#CourierNameHandDelivery").val("");
+            $("#AWBNameofdeliveryperson").val("");
+            $("#Particulars").val("");
+        }
+    </script>*@

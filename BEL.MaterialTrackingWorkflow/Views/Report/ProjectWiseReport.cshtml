@@ -1,0 +1,49 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.Reports
+@model Report
+@{
+    ViewBag.Title = "Project Wise Report";
+}
+<div class="form-horizontal">
+    <div id="divProjectFilter" class="card">
+        <div class="card-body in">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">
+                            @Html.LabelFor(m => m.ProjectName, ResourceNames.Report)
+
+                        </label>
+                        <div class="col-md-8">
+                            <div class="form-control noborder">
+                                @Html.TextBoxFor(m => m.ProjectName, new { @class = "user-tags", @data_hint = "Type and Select Project Name", @data_url = "/InwardRequest/GetProject", @data_limit = "1", @data_onadd = "ProjectAdded", @data_onremove = "ProjectRemoved", @data_displaycolumn = "name" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+
+
+                        <label class="control-label">
+                            <a href="javascript:void(0)" id="btnSearchByProject" class="btn btn-primary">
+                                <i class="fa fa-search"></i>&nbsp; @Html.ResourceValue("Label_Search", ResourceNames.Report)
+                            </a>
+                        </label>
+                        <label class="control-label">
+                            <a href="javascript:void(0);" id="btnProjectWiseExportToExcel" class="btn btn-primary">@Html.ResourceValue("Label_ExportToExcel", ResourceNames.Report)</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="tblReport">
+                    @Html.Partial("_ReportList", Model.ReportList)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/Reports")
+}

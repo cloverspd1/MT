@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B7332F77-DE63-4A50-9982-3854B7037EFA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BEL.CommonDataContract</RootNamespace>
+    <AssemblyName>BEL.CommonDataContract</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.IdentityModel\3.5.0.0__31bf3856ad364e35\Microsoft.IdentityModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client.Taxonomy, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\15\ISAPI\Microsoft.SharePoint.Client.Taxonomy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\BEL Workflow\06.Source Code\02.Development\BEL.Workflow\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attribute\ContainsMasterDataAttribute.cs" />
+    <Compile Include="Attribute\FieldBelongToListAttribute.cs" />
+    <Compile Include="Attribute\FieldColumnNameAttribute.cs" />
+    <Compile Include="Attribute\IsAppendFieldAttribute.cs" />
+    <Compile Include="Attribute\IsApproverDetailsAttribute.cs" />
+    <Compile Include="Attribute\IsApproverMatrixFieldAttribute.cs" />
+    <Compile Include="Attribute\IsFileAttribute.cs" />
+    <Compile Include="Attribute\IsListColumnAttribute.cs" />
+    <Compile Include="Attribute\IsPersonAttribute.cs" />
+    <Compile Include="Attribute\IsPrimaryKeyAttribute.cs" />
+    <Compile Include="Attribute\IsTaskAttribute.cs" />
+    <Compile Include="Attribute\IsTranAttribute.cs" />
+    <Compile Include="Attribute\IsViewerAttribute.cs" />
+    <Compile Include="Attribute\MastersListAttribute.cs" />
+    <Compile Include="Attribute\NotSavedColumnAttribute.cs" />
+    <Compile Include="Attribute\RequiredOnDraft.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Common\ActionStatus.cs" />
+    <Compile Include="Common\ActivityLog.cs" />
+    <Compile Include="Common\ActivityLogSection.cs" />
+    <Compile Include="Common\AjaxResponse.cs" />
+    <Compile Include="Common\AppApprovalMatrix.cs" />
+    <Compile Include="Common\ApplicationStatus.cs" />
+    <Compile Include="Common\ApplicationStatusSection.cs" />
+    <Compile Include="Common\Approvers.cs" />
+    <Compile Include="Common\BusinessExceptionError.cs" />
+    <Compile Include="Common\Button.cs" />
+    <Compile Include="Common\ButtonActionStatus.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\DataTableExtensoins.cs" />
+    <Compile Include="Common\DivisionAdminDetails.cs" />
+    <Compile Include="Common\FileDetails.cs" />
+    <Compile Include="Common\ListItemDetail.cs" />
+    <Compile Include="Common\ListNames.cs" />
+    <Compile Include="Common\MasterNames.cs" />
+    <Compile Include="Common\Masters\IMaster.cs" />
+    <Compile Include="Common\Masters\IMasterItem.cs" />
+    <Compile Include="Common\Masters\MasterDataItem.cs" />
+    <Compile Include="Common\Masters\SLAMatrix.cs" />
+    <Compile Include="Common\NameValueData.cs" />
+    <Compile Include="Common\Person.cs" />
+    <Compile Include="Common\TempKeys.cs" />
+    <Compile Include="Common\UploadedFile.cs" />
+    <Compile Include="Common\EmployeeDetails.cs" />
+    <Compile Include="Common\UserDetails.cs" />
+    <Compile Include="Interface\IContract.cs" />
+    <Compile Include="Interface\IForm.cs" />
+    <Compile Include="Interface\ISection.cs" />
+    <Compile Include="Interface\ITask.cs" />
+    <Compile Include="Interface\ITrans.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

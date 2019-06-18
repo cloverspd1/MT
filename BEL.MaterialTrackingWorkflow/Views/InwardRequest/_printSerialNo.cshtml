@@ -1,0 +1,119 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.InwardRequest
+@using BEL.CommonDataContract
+@using BEL.MaterialTrackingWorkflow.Models.Common
+@using BEL.MaterialTrackingWorkflow.Models.Master
+@using Newtonsoft.Json;
+
+@model  InwardContract
+@{
+    InwardContract contract = Model as InwardContract;
+    InwardRequestForm form = contract.Forms.FirstOrDefault() as InwardRequestForm;
+    ViewBag.Title = "Inward Request";
+    Recipient1Section recipient1Section = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(INWARDSectionName.RECIPIENT1SECTION)) as Recipient1Section;
+    Recipient2Section recipient2Section = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(INWARDSectionName.RECIPIENT2SECTION)) as Recipient2Section;
+}
+
+
+
+
+
+<style>
+    .LabelPadding {
+        padding-top: 6px;
+    }
+</style>
+<div class="hidden">
+    <div id="divprint">
+        <!DOCTYPE HTML>
+
+        <html>
+        <head>
+
+            <title>Print Serial No</title>
+        </head>
+        <body>
+
+            <div id="printContent" class="col-md-12 noborder">
+                <style type="text/css">
+                    .modal-dialog {
+                        width: 75% !important;
+                    }
+                </style>
+                <div id="card1" class="col-md-12">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="col-md-12">
+                                @if (recipient2Section != null && recipient2Section.SerialNo != null && !string.IsNullOrWhiteSpace(recipient2Section.BarCodeImage))
+                                {
+                                    <img src="@recipient2Section.BarCodeImage" alt="SerialNo" style="border:2px solid #000!important" />
+                                }
+                            </div>
+
+                        </div>
+                        @*<div class="col-xs-6 col-sm-6 col-md-6 noborder">
+
+
+
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
+</div>
+</div>
+<div class="modal fade" id="printModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="fa fa-print"></i> Print Serial No</h4>
+
+            </div>
+            <div class="modal-body">
+                <p><span class="text-danger text-default-light">@Html.ResourceValue("Text_Print", ResourceNames.Common)</span></p>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered someTable">
+
+                        <thead>
+                            <tr>
+                                <th>Attachment Name</th>
+                                <th>Print / Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Serial No
+                                </td>
+                                <td>
+
+                                    <a onclick="Print(this);" data-action="6" data-sendbackto="" data-sendtorole="" style="cursor:pointer !important">Print</a>&nbsp; | &nbsp;
+                                    <a onclick="PrintPreview(this);" data-action="6" data-sendbackto="" data-sendtorole="" style="cursor:pointer !important">Preview</a>
+                                </td>
+                            </tr>
+                            @foreach (FileDetails item in recipient2Section.Files)
+                            {
+                                <tr>
+                                    <td>@item.FileName</td>
+                                    <td>
+                                        <a data-url="@item.FileURL" onclick="DownloadUploadedFile(this);" style="cursor:pointer !important"> Download and Print </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

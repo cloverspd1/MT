@@ -1,0 +1,222 @@
+﻿@model BEL.MaterialTrackingWorkflow.Models.Role.RoleActivities
+@{
+    Layout = null;
+}
+<div class="row padding-right-10">
+    @*<div class="col-md-6">
+            <div class="form-group">
+                <label class="col-md-4 control-label">
+                    @Html.ResourceValue("Label_SearchMenu", ResourceNames.RoleActivity)
+                </label>
+                <div class="col-md-8">
+                    <div class="form-control noborder">
+                        @Html.DropDownList("cmbMainMenu", new SelectList(Model.SearchableMenuList, "Value", "Name"), "Select", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <div class="col-md-12">
+        <div class="pull-right">
+            <button type="button" class="btn btn-primary" id="btnSave">Save Role Screen Matrix</button>
+        </div>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    <div class="container margin-top-5">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div id="accordion_search_bar_container">
+                <input type="search"
+                       id="accordion_search_bar"
+                       placeholder="Search Menu" />
+
+            </div>
+            <div class="panel-group wrap" id="bs-collapse" role="tablist" aria-multiselectable="true">
+                @{var menuName = string.Empty;
+                }
+                <div id="divSelectAllOption">
+                    <div class="panelheaderpadding pull-left">
+                        <label class="control-label">@Html.CheckBox("AllAuthorized", Model.IsAllMenuAuthorized, new { id = "chkAllParentMenu", @class = "parentChks" })</label>
+                    </div>
+                    <div>
+                        <h5 class="panel-title">
+                            <a class="bold">
+                                Select All Menu
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+                <div id="divNoOptionFound" style="display:none">
+                    <h5 class="panel-title">
+                        <a class="bold" style="color:red">
+                            No Record Found
+                        </a>
+                    </h5>
+                </div>
+                @foreach (var item in Model.RoleActivityData.Distinct().ToList())
+                {
+                    if (menuName != item.ParentMenuName && !string.IsNullOrWhiteSpace(item.ParentMenuName))
+                    {
+                        <div class="panel" id="@item.ParentMenuName.Replace(" ","").Trim()" roleactivityid="@item.ID">
+                            <div class="panel-heading">
+                                <div class="panelheaderpadding pull-left">
+                                    <label class="checkbox-inline">@Html.CheckBox("Authorized", item.IsAuthorized, new { id = "chkParentMenu", @save = "save", @class = "parentChk", @data = item.ParentMenuName, @parentMenuName = item.ParentMenuName, @roleActivityId = item.ID })</label>
+                                </div>
+                                <div>
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#bs-collapse" href="#Collapse_@item.ParentMenuName.Replace(" ","").Trim()">
+                                            @item.ParentMenuName
+                                        </a>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div id="Collapse_@item.ParentMenuName.Replace(" ","").Trim()" class="panel-collapse collapse">
+                                @foreach (var roleItem in Model.RoleActivityData.Where(m => m.ParentMenuName == item.ParentMenuName))
+                                {
+                                    if (!string.IsNullOrWhiteSpace(roleItem.ChildMenuName))
+                                    {
+                                        <div class="panel-body padding-left-20" roleactivityid="@item.ID">
+                                            <span>@Html.CheckBox("chkAuthorized" + roleItem.ID, roleItem.IsAuthorized, new { id = "Authorized" + roleItem.ID, name = "chkAuthorized" + @roleItem.ID, @data = item.ParentMenuName + "C", @save = "save", @roleActivityId = roleItem.ID, @parentMenuName = roleItem.ParentMenuName, @childMenuName = roleItem.ChildMenuName, @class = "childCheck" })</span>
+                                            @roleItem.ChildMenuName
+
+                                        </div>
+
+                                    }
+                                }
+                            </div>
+                        </div>
+                        menuName = item.ParentMenuName;
+                        Model.RoleActivityData.RemoveAll(m => m.ParentMenuName == item.ParentMenuName);
+            <!-- end of panel -->
+                    }
+                }
+
+
+            </div>
+            <!-- end of #bs-collapse  -->
+        </div>
+    </div>
+        <!-- end of container -->
+
+                    }
+
+
+                    @*<div class="row margin-top-10">
+                            <div class="col-md-12">
+                                @if (Model != null)
+                                {
+                                    <div class="bs-example">
+                                        <div class="panel-group" id="accordion">
+                                            @{var menuName = string.Empty;
+                                            }
+                                            @foreach (var item in Model.RoleActivityData.Distinct().ToList())
+                                            {
+                                                if (menuName != item.ParentMenuName && !string.IsNullOrWhiteSpace(item.ParentMenuName))
+                                                {
+                                                    <div class="panel panel-default" roleactivityid="@item.ID">
+                                                        <div class="panel-heading" >
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#Collapse_@item.ParentMenuName.Replace(" ","").Trim()"><span class="glyphicon glyphicon-plus"></span>@item.ParentMenuName</a><span>@Html.CheckBox("Authorized", item.IsAuthorized, new { id = "chkParentMenu", @save = "save", @class = "parentChk", @data = item.ParentMenuName, @parentMenuName = item.ParentMenuName, @roleActivityId = item.ID })</span>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="Collapse_@item.ParentMenuName.Replace(" ","").Trim()" class="panel-collapse collapse">
+                                                            @foreach (var roleItem in Model.RoleActivityData.Where(m => m.ParentMenuName == item.ParentMenuName))
+                                                            {
+                                                                if (!string.IsNullOrWhiteSpace(roleItem.ChildMenuName))
+                                                                {
+                                                                    <div class="panel-body" roleactivityid="@item.ID">
+                                                                        @roleItem.ChildMenuName @Html.CheckBox("chkAuthorized" + roleItem.ID, roleItem.IsAuthorized, new { id = "Authorized" + roleItem.ID, name = "chkAuthorized" + @roleItem.ID, @data = item.ParentMenuName + "C", @save = "save", @roleActivityId = roleItem.ID, @parentMenuName = roleItem.ParentMenuName, @childMenuName = roleItem.ChildMenuName, @class = "childCheck" })
+                                                                    </div>
+                                                                }
+
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    menuName = item.ParentMenuName;
+                                                    Model.RoleActivityData.RemoveAll(m => m.ParentMenuName == item.ParentMenuName);
+                                                }
+                                            }
+                                        </div>
+
+                                    </div>
+                                                }
+                            </div>
+                        </div>*@
+
+                    @*<table class="table someTable" cellpadding="7">
+                                        @if (Model != null)
+                                        {
+                                            var menuName = string.Empty;
+                                            var parentMenuCount = Convert.ToDouble(Model.RoleActivityData.OrderBy(t => t.ParentMenuName).Distinct().ToList().Count);
+                                            var tCount = Math.Ceiling(parentMenuCount / 3.0);
+
+                                            var rCount = 0;
+
+                                            for (int k = 0; k < tCount; k++)
+                                            {
+                                                rCount = 3;
+
+                                                <tr>
+                                                    @for (int i = k * 3; i < (k * 3) + rCount; i++)
+                                                    {
+                                                        if (i < tCount)
+                                                        {
+                                                            <td valign="top">
+                                                                <div class="top-margin-10">
+                                                                    @foreach (var item in Model.RoleActivityData.Distinct().ToList())
+                                                                    {
+                                                                        if (menuName != item.ParentMenuName && !string.IsNullOrWhiteSpace(item.ParentMenuName))
+                                                                        {
+                                                                            <table class="table table-bordered table-striped table-hover gridtable" id="tblRoleActivity">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th width="90%">
+                                                                                            @Html.ResourceValue("Label_Menu", ResourceNames.RoleActivity)
+                                                                                        </th>
+                                                                                        <th width="10%">
+                                                                                            @Html.ResourceValue("Label_Authorized", ResourceNames.RoleActivity)
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr roleactivityid="@item.ID">
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(m => item.ParentMenuName, new { @id = "lblParentMenuName" })
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            @Html.CheckBox("Authorized", item.IsAuthorized, new { id = "chkParentMenu", @save = "save", @class = "parentChk", @data = item.ParentMenuName, @parentMenuName = item.ParentMenuName, @roleActivityId = item.ID })
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    @foreach (var roleItem in Model.RoleActivityData.Where(m => m.ParentMenuName == item.ParentMenuName))
+                                                                                    {
+                                                                                        if (!string.IsNullOrWhiteSpace(roleItem.ChildMenuName))
+                                                                                        {
+                                                                                            <tr roleactivityid="@roleItem.ID">
+                                                                                                <td>
+                                                                                                    <span class="padding-left-20"></span>
+                                                                                                    @Html.DisplayFor(m => roleItem.ChildMenuName)
+                                                                                                </td>
+                                                                                                <td class="text-center">
+                                                                                                    @Html.CheckBox("chkAuthorized" + roleItem.ID, roleItem.IsAuthorized, new { id = "Authorized" + roleItem.ID, name = "chkAuthorized" + @roleItem.ID, @data = item.ParentMenuName + "C", @save = "save", @roleActivityId = roleItem.ID, @parentMenuName = roleItem.ParentMenuName, @childMenuName = roleItem.ChildMenuName, @class = "childCheck" })
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                            menuName = item.ParentMenuName;
+                                                                            Model.RoleActivityData.RemoveAll(m => m.ParentMenuName == item.ParentMenuName);
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                            </td>
+                                                        }
+                                                    }
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                            </div>
+                        </div>*@

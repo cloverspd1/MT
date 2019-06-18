@@ -1,0 +1,107 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.InwardRequest
+@using BEL.CommonDataContract
+@using BEL.MaterialTrackingWorkflow.Models.Common
+@model  InwardContract
+@{
+    InwardContract contract = Model as InwardContract;
+    InwardRequestForm form = contract.Forms.FirstOrDefault() as InwardRequestForm;
+    ViewBag.Title = "Inward Request";
+    Recipient1Section recipient1Section = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(INWARDSectionName.RECIPIENT1SECTION)) as Recipient1Section;
+    Recipient2Section recipient2Section = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(INWARDSectionName.RECIPIENT2SECTION)) as Recipient2Section;
+}
+
+@if (form != null)
+{
+@section buttons{
+    @Html.Partial("_ButtonGroup", form.Buttons)
+}
+
+if (!string.IsNullOrEmpty(form.FormStatus))
+{
+    <div class="card-body text-right pad-bot-15">
+        <div class="label label-primary">
+             @form.FormStatus
+        </div>
+    </div>
+}
+
+<div id="divInwardRequestForm">
+    <div id="tab-general">
+        <div class="row mbl">
+            <div class="col-lg-12">
+                <div class="tab-content responsive " id="generalTabContent">
+                    @if (recipient1Section != null)
+                    {
+                        string sectionActiveCss = recipient1Section.IsActive ? string.Empty : "disabled";
+                        <div class="card @sectionActiveCss">
+                            <div class="card-head" data-toggle="collapse" data-target="#sectionrecipient1">
+                                @Html.ResourceValue("Section_Title_RECIPIENT1", ResourceNames.InwardRequest)
+                                <div class="btn collapse-btn"><i class="fa fa-chevron-down"></i></div>
+                            </div>
+                            <div class="card-body" id="sectionrecipient1">
+                                <div class="form-horizontal">
+                                    <p><span class="text-danger text-default-light">@Html.ResourceValue("Text_Mandatory", ResourceNames.Common)</span></p>
+                                    @Html.Partial("_recipient1Section", recipient1Section)
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                    @if (recipient2Section != null)
+                    {
+                        string sectionActiveCss = recipient2Section.IsActive ? string.Empty : "disabled";
+                        <div class="card @sectionActiveCss">
+                            <div class="card-head" data-toggle="collapse" data-target="#sectionrecipient2">
+                                @Html.ResourceValue("Section_Title_RECIPIENT2", ResourceNames.InwardRequest)
+                                <div class="btn collapse-btn"><i class="fa fa-chevron-down"></i></div>
+                            </div>
+                            <div class="card-body" id="sectionrecipient2">
+                                <div class="form-horizontal">
+                                    @Html.Partial("_recipient2Section", recipient2Section)
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+
+                    @{ApplicationStatusSection appStatus = form.SectionsList.FirstOrDefault(f => f != null && f.SectionName.Equals(SectionNameConstant.APPLICATIONSTATUS)) as ApplicationStatusSection;
+
+                    if (appStatus != null)
+                    {
+                        @Html.Partial("_InwardApplicationStatus", appStatus)
+                    }
+
+                    ActivityLogSection activityLog = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(INWARDSectionName.ACTIVITYLOG)) as ActivityLogSection;
+                    if (activityLog != null)
+                    {
+                        @Html.Partial("_InwardActivityLogs", activityLog, new ViewDataDictionary { { "Resources", ResourceNames.InwardRequest } })
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-top-wrapper ">
+        <i class="fa fa-chevron-up">
+        </i>
+    </div>
+
+
+</div>
+
+    if (recipient1Section != null)
+    {
+        if (recipient1Section.Status == "Completed" || recipient1Section.Status == "Rejected")
+        {
+
+                @Html.Partial("../InwardRequest/_printSerialNo", Model)
+        }
+    }
+}
+@section scripts{
+    @Scripts.Render("~/bundles/InwardRequestindex")
+}

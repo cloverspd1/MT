@@ -1,0 +1,144 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.OutwardRequest
+@using BEL.CommonDataContract
+@using BEL.MaterialTrackingWorkflow.Models.Common
+@model  OutwardSingleContract
+@{
+    OutwardSingleContract contract = Model as OutwardSingleContract;
+    OutwardSingleRequestForm form = contract.Forms.FirstOrDefault() as OutwardSingleRequestForm;
+    ViewBag.Title = "Outward Single Request";
+    TesterSingleSection testerSection = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(OutwardSectionName.TESTERSINGLESECTION)) as TesterSingleSection;
+    HODSingleSection hodSection = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(OutwardSectionName.HODSINGLESECTION)) as HODSingleSection;
+    RecipientSingleSection recipientSection = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(OutwardSectionName.RECIPIENTSINGLESECTION)) as RecipientSingleSection;
+}
+
+@if (form != null)
+{
+    @section buttons{
+        @Html.Partial("_ButtonGroup", form.Buttons)
+    }
+
+    if (!string.IsNullOrEmpty(form.FormStatus))
+    {
+        <div class="card-body text-right pad-bot-15">
+            <div class="label label-primary">
+                @form.FormStatus
+            </div>
+        </div>
+    }
+
+
+    <div id="divSingleOutwardForm">
+        <div id="tab-general">
+            <div class="row mbl">
+                <div class="col-lg-12">
+                    <div class="tab-content responsive " id="generalTabContent">
+
+                        @if (testerSection != null)
+                        {
+                            string sectionActiveCss = testerSection.IsActive ? string.Empty : "disabled";
+                            //string disableSection = "disabled";
+                            //if (form.Buttons.Any(p => p.Name == "Release" && testerSection.Status == "Sent Back" && (hodSection != null && hodSection.Action == "Approve")))
+                            //{
+                            //    disableSection = "disabled";
+                            //}
+                            <div class="card @sectionActiveCss">
+                                <div class="card-head" data-toggle="collapse" data-target="#testersectiondetails1">
+                                    @Html.ResourceValue("Section_Title_TESTER", ResourceNames.OutwardRequest)
+                                    <div class="btn collapse-btn"><i class="fa fa-chevron-down"></i></div>
+                                </div>
+                                <div class="card-body" id="testersectiondetails1">
+                                    <div class="form-horizontal">
+                                        <p><span class="text-danger text-default-light">@Html.ResourceValue("Text_Mandatory", ResourceNames.Common)</span></p>
+                                        @Html.Partial("../OutwardRequest/Single/_assembleTesterForm", testerSection)
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        }
+                        @if (hodSection != null)
+                        {
+                            string sectionActiveCss = hodSection.IsActive ? string.Empty : "disabled";
+                            <div class="card @sectionActiveCss">
+                                <div class="card-head" data-toggle="collapse" data-target="#HODSec">
+                                    @Html.ResourceValue("Section_Title_HOD", ResourceNames.OutwardRequest)
+
+                                    <div class="btn collapse-btn"><i class="fa fa-chevron-down"></i></div>
+                                </div>
+                                <div class="card-body" id="HODSec">
+                                    <div class="form-horizontal">
+
+                                        @Html.Partial("../OutwardRequest/Single/_assembleHODForm", hodSection)
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        }
+
+                        @if (recipientSection != null)
+                        {
+                            string sectionActiveCss = recipientSection.IsActive ? string.Empty : "disabled";
+                            <div class="card @sectionActiveCss">
+                                <div class="card-head" data-toggle="collapse" data-target="#RecipientSec">
+                                    @Html.ResourceValue("Section_Title_RECIPIENT", ResourceNames.OutwardRequest)
+
+                                    <div class="btn collapse-btn"><i class="fa fa-chevron-down"></i></div>
+                                </div>
+                                <div class="card-body" id="RecipientSec">
+                                    <div class="form-horizontal">
+
+                                        @Html.Partial("../OutwardRequest/Single/_assembleRecipientForm", recipientSection)
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        }
+
+                        @{ApplicationStatusSection appStatus = form.SectionsList.FirstOrDefault(f => f != null && f.SectionName.Equals(SectionNameConstant.APPLICATIONSTATUS)) as ApplicationStatusSection;
+
+                        if (appStatus != null)
+                        {
+                            @Html.Partial("_ApplicationStatus", appStatus)
+                        }
+
+                        ActivityLogSection activityLog = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(OutwardSectionName.ACTIVITYLOG)) as ActivityLogSection;
+                        if (activityLog != null)
+                        {
+                            @Html.Partial("_ActivityLogs", activityLog, new ViewDataDictionary { { "Resources", ResourceNames.InwardRequest } })
+                        }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-top-wrapper ">
+            <i class="fa fa-chevron-up">
+            </i>
+        </div>
+
+
+
+    </div>
+    if (testerSection != null)
+    {
+        if (testerSection.Status == "Completed" || testerSection.Status == "Rejected")
+        {
+
+            @Html.Partial("../OutwardRequest/Single/_printSingleForm", Model)
+        }
+        else if (testerSection.Status == "Sent Back")
+        {
+            @Html.Partial("../OutwardRequest/Single/_printSingleForm", Model)
+        }
+    }
+
+}
+@section scripts{
+    @Scripts.Render("~/bundles/OutwardRequestindex")
+}

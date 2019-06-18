@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{199DCF34-62AA-42CB-B05D-7F40B41F14F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BEL.MTSPApp</RootNamespace>
+    <AssemblyName>BEL.MTSPApp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetOfficeVersion>16.1</TargetOfficeVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{C1CDDADD-2546-481F-9697-4EA41081F2FC};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <MinimumOfficeToolsVersion>12.2</MinimumOfficeToolsVersion>
+    <IncludeAssemblyInPackage>False</IncludeAssemblyInPackage>
+    <ProjectMode>SharePointApp</ProjectMode>
+    <AppFeaturePartId>{e8ac1823-fe63-49f6-ab87-12c1887453b0}</AppFeaturePartId>
+    <WspPartId>{229be97b-9ced-497d-b508-8c000632fec9}</WspPartId>
+    <WorkflowPartId>{d6a92b03-797f-412b-8a2e-fd62967892e1}</WorkflowPartId>
+    <CspkgPartId>{2f23aeb3-d7be-44a4-85c2-74d81731db81}</CspkgPartId>
+    <SqlPackagePartId>{1a272d46-13e7-4e39-a85b-f7392335a386}</SqlPackagePartId>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <ActivePublishProfile>MT_Prod_Publish</ActivePublishProfile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>E:\Projects\Material Tracking System\06.Source Code\02.Development\BEL.MaterialTracking\Backup24\</UpgradeBackupLocation>
+    <UpgradeBackupLocation>E:\Projects\Material Tracking System\06.Source Code\02.Development\BEL.MaterialTracking-branch-08-Jun\Backup\BEL.MTSPApp\</UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="AppIcon.png">
+      <OpcRelationship>manifest-icon</OpcRelationship>
+    </Content>
+    <Content Include="BUWiseReport\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+    <Content Include="CacheListApp\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+    <Content Include="DateWiseReport\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+    <Content Include="InwardRequestForm\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+    <Content Include="ManageRoleActivity\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+    <Content Include="MaterialLocationWiseReport\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+    <Content Include="OutwardRequestForm\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+    <Content Include="OutwardSingleRequestForm\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+    <Content Include="ProjectWiseReport\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+    <Content Include="SerialNumberWiseReport\Elements.xml">
+      <OpcRelationship>feature-elementmanifest</OpcRelationship>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <AppManifestFile Include="AppManifest.xml">
+      <SubType>Designer</SubType>
+    </AppManifestFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BEL.MaterialTrackingWorkflow\BEL.MaterialTrackingWorkflow.csproj">
+      <Project>{D26B1C19-22C0-42D1-986F-E86F27C62C6C}</Project>
+      <Name>BEL.MaterialTrackingWorkflow</Name>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <OutputItemType>SharePointWebProjectOutput</OutputItemType>
+      <RoleName>BEL.MaterialTrackingWorkflow</RoleName>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="BUWiseReport\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{5231416c-505c-42af-a376-14f169203e79}</SharePointProjectItemId>
+    </None>
+    <None Include="CacheListApp\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{7557692a-57f8-4c48-aac1-b80f0067a502}</SharePointProjectItemId>
+    </None>
+    <None Include="DateWiseReport\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{40ac4d6f-e668-4f91-a49c-8f66103064b0}</SharePointProjectItemId>
+    </None>
+    <None Include="InwardRequestForm\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{f7cdacdd-d49a-49ba-9b54-e671f4ab641c}</SharePointProjectItemId>
+    </None>
+    <None Include="ManageRoleActivity\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{032ccd96-75d1-45a3-8e7f-0338a8b629e6}</SharePointProjectItemId>
+    </None>
+    <None Include="MaterialLocationWiseReport\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{826a39ac-6a44-4105-9c66-7a4ef78b4a72}</SharePointProjectItemId>
+    </None>
+    <None Include="OutwardRequestForm\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{b4890b4d-0fba-424a-83af-65e74763d4e1}</SharePointProjectItemId>
+    </None>
+    <None Include="OutwardSingleRequestForm\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{3870fad5-5cfa-41e1-aa2d-cf34512daa68}</SharePointProjectItemId>
+    </None>
+    <None Include="ProjectWiseReport\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{6b8428d5-e56e-4f50-b376-b94e4773f509}</SharePointProjectItemId>
+    </None>
+    <None Include="SerialNumberWiseReport\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{2d69629b-414c-4173-a0e4-104d00778263}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>

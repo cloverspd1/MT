@@ -1,0 +1,295 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.InwardRequest
+@using BEL.CommonDataContract
+@using BEL.MaterialTrackingWorkflow.Models.Common
+@using BEL.MaterialTrackingWorkflow.Models.Master
+
+@model Recipient2Section
+<script type="text/javascript">
+    @{
+
+        ProductCategoryMaster prodlist = Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.PRODUCTCATEGORYMASTER)) as ProductCategoryMaster;
+
+    }
+    var ProductCategoryList = JSON.parse(@(new HtmlString(Json.Encode(Newtonsoft.Json.JsonConvert.SerializeObject(prodlist.Items.OrderBy(p => p.Title).ToList())))));
+
+
+</script>
+<div id="divrecipient2Section">
+
+    @using (Ajax.BeginForm("SaveRecipient2DetailSection", "InwardRequest", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "loading",
+        OnFailure = "OnFailure",
+        OnSuccess = "OnSuccess",
+        OnBegin = "BeginClient"
+    }, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(m => m.ListDetails[0].ItemId)
+        @Html.HiddenFor(m => m.ListDetails[0].ListName)
+        @Html.HiddenFor(m => m.SectionName)
+        @Html.HiddenFor(m => m.ActionStatus)
+        @Html.HiddenFor(m => m.Status)
+        @Html.HiddenFor(m => m.WorkflowStatus)
+        @Html.HiddenFor(m => m.InwardId)
+        @Html.HiddenFor(m => m.MaterialHandedovertoUserID)
+        @Html.HiddenFor(m => m.MaterialHandedovertoAliasNames, new { Value = Model.MaterialHandedoverto })
+        @Html.Partial("_CurrentApprover", Model.CurrentApprover ?? new ApplicationStatus())
+        @Html.AntiForgeryToken()
+
+        if (!string.IsNullOrEmpty(Model.SerialNo))
+        {
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="col-md-4 control-label">
+
+                            @Html.LabelFor(m => m.SerialNo, ResourceNames.InwardRequest)
+                        </label>
+                        <div class="col-md-8">
+                            <div class="form-control noborder">
+                                <span id="ReferenceNo">
+                                    <b>
+                                        @Html.DisplayFor(m => m.SerialNo, ResourceNames.InwardRequest)
+                                        @Html.HiddenFor(m => m.SerialNo)
+                                    </b>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.ProjectName, ResourceNames.InwardRequest)
+
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @*@Html.DropDownListFor(m => m.ProjectName, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.PROJECTNAMEMASTER)) as ProjectNameMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.ProjectName })
+                                @Html.ValidationMessageFor(m => m.ProjectName, ResourceNames.InwardRequest)*@
+                            @if (Model.OutwardIdType == MaterialTrackingListNames.OUTWARDSINGLEREQUESTSLIST)
+                            {
+                                @*@Html.TextBoxFor(m => m.ProjectName, new { @class = "user-tags", @data_hint = "Type and Select Project Name", @data_url = "/InwardRequest/GetProject", @data_limit = "1", @data_onadd = "ProjectAdded", @data_onremove = "ProjectRemoved", @data_displaycolumn = "name" })*@
+                                @Html.DropDownListFor(m => m.ProjectName, new SelectList(new List<KeyValuePair<string, string>>()), "Select", new { @disabled = "disabled", @class = "form-control", @data_selected = Model.ProjectName })
+                                @Html.ValidationMessageFor(m => m.ProjectName, ResourceNames.InwardRequest)
+                                @Html.HiddenFor(m=>m.ProjectName)
+
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.ProjectName, new SelectList(new List<KeyValuePair<string, string>>()), "Select", new { @class = "form-control", @data_selected = Model.ProjectName })
+                                @Html.ValidationMessageFor(m => m.ProjectName, ResourceNames.InwardRequest)
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.BUName, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @if (Model.OutwardIdType == MaterialTrackingListNames.OUTWARDSINGLEREQUESTSLIST)
+                            {
+                                @Html.DropDownListFor(m => m.BUName, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.BUSINESSUNITMASTER)) as BusinessUnitMaster).Items, "Value", "Title"), "Select", new { @disabled = "disabled", @class = "form-control", @data_selected = Model.BUName })
+                                @Html.ValidationMessageFor(m => m.BUName, ResourceNames.InwardRequest)
+                                @Html.HiddenFor(m => m.BUName)
+
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.BUName, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.BUSINESSUNITMASTER)) as BusinessUnitMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.BUName })
+                                @Html.ValidationMessageFor(m => m.BUName, ResourceNames.InwardRequest)
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.ProductCategory, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @*@Html.DropDownListFor(m => m.ProductCategory, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.PRODUCTCATEGORYMASTER)) as ProductCategoryMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.ProductCategory })*@
+                            @if (Model.OutwardIdType == MaterialTrackingListNames.OUTWARDSINGLEREQUESTSLIST)
+                            {
+                                @Html.DropDownListFor(m => m.ProductCategory, new SelectList(new List<SelectListItem>()), "Select", new { @disabled = "disabled", @class = "form-control", @data_selected = Model.ProductCategory })
+                                @Html.ValidationMessageFor(m => m.ProductCategory, ResourceNames.InwardRequest)
+                                @Html.HiddenFor(m => m.ProductCategory)
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.ProductCategory, new SelectList(new List<SelectListItem>()), "Select", new { @class = "form-control", @data_selected = Model.ProductCategory })
+                                @Html.ValidationMessageFor(m => m.ProductCategory, ResourceNames.InwardRequest)
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.TypeofMaterial, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.DropDownListFor(m => m.TypeofMaterial, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.TYPEOFMATERIALMASTER)) as TypeofMaterialMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.TypeofMaterial })
+                            @Html.ValidationMessageFor(m => m.TypeofMaterial, ResourceNames.InwardRequest)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.MaterialCategory, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8">
+                        <div class="form-control noborder multiselect-two">
+                            @if (Model.OutwardIdType == MaterialTrackingListNames.OUTWARDSINGLEREQUESTSLIST)
+                            {
+                                 @Html.DropDownListFor(m => m.MaterialCategory, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.MATERIALCATEGORY)) as MaterialCategoryMaster).Items, "Value", "Title"), "Select", new { @disabled = "disabled", @class = "form-control", @data_selected = Model.MaterialCategory })
+                                 @Html.ValidationMessageFor(m => m.MaterialCategory, ResourceNames.InwardRequest)
+                                 @Html.HiddenFor(m => m.MaterialCategory)
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.MaterialCategory, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.MATERIALCATEGORY)) as MaterialCategoryMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.MaterialCategory })
+                                @Html.ValidationMessageFor(m => m.MaterialCategory, ResourceNames.InwardRequest)
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.Particulars, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.TextAreaFor(m => m.Particulars, new { maxLength = 1000, @class = "form-control textarea-height", @readonly = "readonly", @rows = "4", @cols = "40", data_toggle = "tooltip", title = "Max 1000 Characters Allowed" })
+                            @Html.ValidationMessageFor(m => m.Particulars, ResourceNames.InwardRequest)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.MaterialLocation, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8">
+                        <div class="form-control noborder multiselect-two">
+                            @if (Model.OutwardIdType == MaterialTrackingListNames.OUTWARDSINGLEREQUESTSLIST)
+                            {
+                                @Html.DropDownListFor(m => m.MaterialLocation, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.MATERIALLOCATION)) as MaterialLocationMaster).Items, "Value", "Title"), "Select", new { @disabled = "disabled", @class = "form-control", @data_selected = Model.MaterialLocation })
+                                @Html.ValidationMessageFor(m => m.MaterialLocation, ResourceNames.InwardRequest)
+                                @Html.HiddenFor(m => m.MaterialLocation)
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.MaterialLocation, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.MATERIALLOCATION)) as MaterialLocationMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.MaterialLocation })
+                                @Html.ValidationMessageFor(m => m.MaterialLocation, ResourceNames.InwardRequest)
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.Recipient2Particulars, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.TextAreaFor(m => m.Recipient2Particulars, new { maxLength = 1000, @class = "form-control textarea-height", @rows = "4", @cols = "40", data_toggle = "tooltip", title = "Max 1000 Characters Allowed" })
+                            @Html.ValidationMessageFor(m => m.Recipient2Particulars, ResourceNames.InwardRequest)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.MaterialHandedoverto, ResourceNames.InwardRequest)
+
+
+                    </label>
+                    <div class="col-md-8">
+                        <div class="form-control noborder multiselect-two">
+                            @Html.DropDownListFor(m => m.MaterialHandedoverto, new SelectList((Model.TesterList), "UserID", "AliasNames"), "Select", new { @class = "form-control", @data_selected = Model.MaterialHandedoverto })
+                            @Html.ValidationMessageFor(m => m.MaterialHandedoverto, ResourceNames.InwardRequest)
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div id="divproposedduetoOther" class="form-group">
+                    <label class="col-md-4 control-label">
+                        @Html.LabelFor(m => m.Recipient2Attachment, ResourceNames.InwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <span class="text-danger text-default-light">
+                            Note: (Max. up to 2MB per file and you can upload maximum 10 files.)
+                        </span>
+                        <div id="AttachmentInwardRecipient2" data-appname="@SiteURLs.MTSITEURL">
+                        </div>
+                        @Html.TextBoxFor(m => m.Recipient2Attachment, new { @class = "notvisible" })
+                        @Html.ValidationMessageFor(m => m.Recipient2Attachment, ResourceNames.InwardRequest)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    }
+
+</div>

@@ -1,0 +1,49 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.Reports
+@model Report
+@{
+    ViewBag.Title = "Serial Number Wise Report";
+}
+<div class="form-horizontal">
+    <div id="divSerialNumberWiseFilter" class="card">
+        <div class="card-body in">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">
+                            @Html.LabelFor(m => m.SerialNumber, ResourceNames.Report)
+                        </label>
+                        <div class="col-md-8 ">
+                            <div class="form-control noborder">
+                                @*@Html.DropDownListFor(m => m.SerialNumber, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.BUSINESSUNITMASTER)) as BusinessUnitMaster).Items, "Value", "Title"), "Select", new { @class = "form-control" })*@
+                                @Html.TextBoxFor(m => m.SerialNumber, new { @class = "user-tags", @data_hint = "Type and Select Serial Number", @data_url = "/Report/GetSerialNumbers", @data_limit = "1", @data_onadd = "SerialNumberAdded", @data_onremove = "SerialNumberRemoved", @data_displaycolumn = "name" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+
+                        <label class="control-label">
+                            <a href="javascript:void(0)" id="btnSearchBySerialNumber" class="btn btn-primary">
+                                <i class="fa fa-search"></i>&nbsp; @Html.ResourceValue("Label_Search", ResourceNames.Report)
+                            </a>
+                        </label>
+                        <label class="control-label">
+                            <a href="javascript:void(0);" id="btnSerialNumberWiseExportToExcel" class="btn btn-primary">@Html.ResourceValue("Label_ExportToExcel", ResourceNames.Report)</a>
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="tblReport">
+                    @Html.Partial("_ReportList", Model.ReportList)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/Reports")
+}

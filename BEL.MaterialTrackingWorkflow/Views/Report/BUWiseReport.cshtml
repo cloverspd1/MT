@@ -1,0 +1,50 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.Reports
+@model Report
+@{
+    ViewBag.Title = "Business Unit Wise Report";
+}
+<div class="form-horizontal">
+    <div id="divBUWiseFilter" class="card">
+        <div class="card-body in">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">
+                            @Html.LabelFor(m => m.BUName, ResourceNames.Report)
+                        </label>
+                        <div class="col-md-8">
+                            <div class="form-control noborder">
+                                @*@Html.DropDownListFor(m => m.BUName, Model.BUList.ToSelectList(null, "Value", "Name"), "Select", new { @class = "form-control" })*@
+
+                                @Html.ListBoxFor(m => m.BUName, Model.BUList.ToSelectList(null, "Value", "Name"), new { @id = "BUName", @name = "BUName", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                            <a href="javascript:void(0)" id="btnSearchByBU" class="btn btn-primary">
+                                <i class="fa fa-search"></i>&nbsp; @Html.ResourceValue("Label_Search", ResourceNames.Report)
+                            </a>
+                        </label>
+                        <label class="control-label">
+                            <a href="javascript:void(0);" id="btnBUWiseExportToExcel" class="btn btn-primary">@Html.ResourceValue("Label_ExportToExcel", ResourceNames.Report)</a>
+                        </label>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="tblReport">
+                    @Html.Partial("_ReportList", Model.ReportList)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/Reports")
+}

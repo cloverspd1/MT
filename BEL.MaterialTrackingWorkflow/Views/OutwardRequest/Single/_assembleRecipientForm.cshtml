@@ -1,0 +1,135 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.OutwardRequest
+@using BEL.CommonDataContract
+@using BEL.MaterialTrackingWorkflow.Models.Common
+@using BEL.MaterialTrackingWorkflow.Models.Master
+
+@model RecipientSingleSection
+<script type="text/javascript">
+    @{
+        List<MasterDataItem> typeofMaterialList = new List<MasterDataItem>();
+        typeofMaterialList.Add(new MasterDataItem("Consider", "Consider"));
+        typeofMaterialList.Add(new MasterDataItem("Not Consider", "Not Consider"));
+
+    }
+
+</script>
+
+<div id="divrecipientSection">
+
+    @using (Ajax.BeginForm("SaveSingleRecipientSection", "OutwardRequest", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "loading",
+        OnFailure = "OnFailure",
+        OnSuccess = "OnSuccess",
+        OnBegin = "BeginClient"
+    }, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(m => m.ListDetails[0].ItemId)
+        @Html.HiddenFor(m => m.ListDetails[0].ListName)
+        @Html.HiddenFor(m => m.SectionName)
+        @Html.HiddenFor(m => m.ActionStatus)
+        @Html.HiddenFor(m => m.Status)
+        @Html.HiddenFor(m => m.WorkflowStatus)
+        @Html.HiddenFor(m => m.OutwardId)
+        @Html.HiddenFor(m=> m.InwardId)
+        @Html.Partial("_ApproversList", Model.ApproversList)
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.OutwardDate, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        <div class="input-group date datepicker pastDisabled">
+                            @Html.TextBoxFor(m => m.OutwardDate, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.OutwardDate, ResourceNames.OutwardRequest)
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.LocationAddress, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        @Html.TextAreaFor(m => m.LocationAddress, new { maxLength = 1000, @class = "form-control textarea-height", @rows = "4", @cols = "40", data_toggle = "tooltip", title = "Max 1000 characters" })
+                        @Html.ValidationMessageFor(m => m.LocationAddress, ResourceNames.OutwardRequest)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.CourierDetails, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.DropDownListFor(m => m.CourierDetails, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.COURIERTYPEMASTER)) as CourierTypeMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.CourierDetails })
+                            @Html.ValidationMessageFor(m => m.CourierDetails, ResourceNames.OutwardRequest)
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.AWDNo, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @Html.TextBoxFor(m => m.AWDNo, new { maxLength = 255, @class = "form-control", data_toggle = "tooltip", title = "Max 255 characters" })
+                            @Html.ValidationMessageFor(m => m.AWDNo, ResourceNames.OutwardRequest)
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.RecipientSingleAttachment, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        <span class="text-danger text-default-light">
+                            Note: (Max. up to 2MB per file and you can upload maximum 10 files.) 
+                        </span>
+                        <div id="AttachmentRecipientSingleResult" data-appname="@SiteURLs.MTSITEURL">
+                        </div>
+                        @Html.TextBoxFor(m => m.RecipientSingleAttachment, new {@class = "notvisible"})
+                        @Html.ValidationMessageFor(m => m.RecipientSingleAttachment, ResourceNames.OutwardRequest)
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>

@@ -1,0 +1,130 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.OutwardRequest
+@using BEL.CommonDataContract
+@using BEL.MaterialTrackingWorkflow.Models.Common
+@using BEL.MaterialTrackingWorkflow.Models.Master
+@using Newtonsoft.Json;
+@model  OutwardSingleContract
+
+@{
+    OutwardSingleContract contract = Model as OutwardSingleContract;
+    OutwardSingleRequestForm form = contract.Forms.FirstOrDefault() as OutwardSingleRequestForm;
+    TesterSingleSection testerSection = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(OutwardSectionName.TESTERSINGLESECTION)) as TesterSingleSection;
+    RecipientSingleSection recipientSection = form.SectionsList.FirstOrDefault(f => f.SectionName.Equals(OutwardSectionName.RECIPIENTSINGLESECTION)) as RecipientSingleSection;
+    InwardDetail inwardDetails = testerSection.InwardDetails;
+    DeclarationTextMaster declarationTextMaster = new DeclarationTextMaster();
+    if (recipientSection != null && recipientSection.MasterData != null && recipientSection.MasterData.Count > 0)
+    {
+        declarationTextMaster = recipientSection.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.DECLARATIONTEXTMASTER)) as DeclarationTextMaster;
+    }
+}
+<style>
+  
+    .LabelPadding {
+        padding-top: 6px;
+    }
+
+    .bold {
+        font-weight: bold;
+        padding-top: 6px;
+    }
+
+    .borderRight {
+        border-right: 1px solid black;
+    }
+
+    .borderLeft {
+        border-left: 1px solid black;
+    }
+
+    header {      
+        padding-top: 15px;
+        padding-right:11px;
+        text-align: right;       
+    }
+
+    footer {
+        padding: 10px;
+        text-align: center;
+        color: black;
+        bottom: 0;
+        display: block;              
+    }
+</style>
+
+<div>
+    <header>
+        <img id="logo" src="~/images/bajaj_logo.jpg" width="25%" />
+    </header>
+    <div class="row">
+        <br />
+        <div class="col-sm-12 text-right" style="font-size:medium;">
+            <b>  @DateTime.Now.DayOfWeek, @DateTime.Now.ToString("MMMM") @DateTime.Now.Day, @DateTime.Now.Year</b>
+        </div>      
+    </div>
+    <div style="min-height:760px!important">
+        <div id="card1" class="col-sm-12 card" style="border:1px solid black!important;">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h4 style="text-decoration:underline solid;" class="bold">TO WHOM IT MAY CONCERN</h4>
+                </div>
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    @* <p>This  is  to  certify  that  we  are  herewith  sending @(testerSection != null ? testerSection.Particulars : string.Empty) for study to the following address.</p>*@
+
+                    <p>This is to declare that the parcel is addressed to<b> @(testerSection != null && testerSection.LocationAddress != null && testerSection.RecipientName != null ? testerSection.RecipientName + ", " + testerSection.LocationAddress : "")</b>. it Contains <b>@(testerSection != null && testerSection.Particulars != null ? testerSection.Particulars : "") </b>being sent for internal use and not for sale, hence has no commercial Value.</p>
+
+                    <p>Approx. Value =<b> <i class="fa fa-inr"></i> @(testerSection != null ? testerSection.MaterialCost : 0) Only </b></p>
+                    <p>Bajaj GST No: 27AAACB2484Q1Z8</p>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <br />
+                <div class="col-sm-6">
+                    <b> Authorized by</b><br />
+                    @if (testerSection != null)
+                {
+                        <b> @testerSection.CurrentApprover.ApproveByName</b>
+                }
+                    <br />
+                    AB Square, <br />
+                    Plot No. 27, Part 2,<br />
+                    Near to Fine Organics,<br />
+                    Millennium Business Park,<br />
+                    Mahape, Navi Mumbai – 400 710<br />
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+            <div class="clearfix" style="margin-bottom : 20px;"></div>
+            @*<br />
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                        @if (recipientSection != null && recipientSection.MasterData != null && recipientSection.MasterData.Count > 0 && declarationTextMaster != null && declarationTextMaster.Items.Count > 0)
+                        {
+                            <p>@declarationTextMaster.Items.FirstOrDefault().Title</p>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <br />
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 text-left">
+                        <p>
+                            Thanking You,<br />
+                            @if (recipientSection != null)
+                            {
+                                @recipientSection.CurrentApprover.ApproveByName
+                            }
+                        </p>
+
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    <footer style="page-break-after:always;">
+        <p style="padding-left:50px;padding-right:50px; word-break:normal;">AB Square, Plot No. 27, Part 2, Near to Fine Organics, Millennium Business Park, Mahape, Navi Mumbai – 400 710, India</p>
+    </footer>
+</div>

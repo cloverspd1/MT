@@ -1,0 +1,83 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.OutwardRequest
+@using BEL.CommonDataContract
+
+@model HODSingleSection
+<script type="text/javascript">
+    @{
+        List<MasterDataItem> actionList = new List<MasterDataItem>();
+        actionList.Add(new MasterDataItem("Approve", "Approve"));
+        if (Model.IsReworkRequired != false)
+        {
+            actionList.Add(new MasterDataItem("Rework", "Rework"));
+        }
+       
+    }
+
+</script>
+
+<div id="divHODSection">
+
+    @using (Ajax.BeginForm("SaveSingleHODSection", "OutwardRequest", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "loading",
+        OnFailure = "OnFailure",
+        OnSuccess = "OnSuccess",
+        OnBegin = "BeginClient"
+    }, new { enctype = "multipart/form-data" }))
+    {
+
+    @Html.HiddenFor(m => m.ListDetails[0].ItemId)
+    @Html.HiddenFor(m => m.ListDetails[0].ListName)
+    @Html.HiddenFor(m => m.SectionName)
+    @Html.HiddenFor(m => m.ActionStatus)
+    @Html.HiddenFor(m => m.Status)
+    @Html.HiddenFor(m => m.WorkflowStatus)
+    @Html.HiddenFor(m => m.IsReworkRequired)
+
+
+    @Html.Partial("_ApproversList", Model.ApproversList)
+    @Html.AntiForgeryToken()
+
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <label class="col-md-4 col-sm-4 col-xl-4 control-label">
+                    <span class="text-danger text-default-light">*</span>
+                    @Html.LabelFor(m => m.Action, ResourceNames.OutwardRequest)
+                </label>
+
+                <div class="col-md-8 col-sm-8 col-xl-8">
+                    @Html.DropDownListFor(m => m.Action, new SelectList((actionList).OrderBy(x => x.Title).ToList(), "Value", "Title"), "Select", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Action, ResourceNames.OutwardRequest)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <label class="col-md-4 col-sm-4 col-xl-4 control-label">
+                    <span class="text-danger text-default-light">*</span>
+                    @Html.ResourceValue("Label_Comments", ResourceNames.OutwardRequest)
+
+                </label>
+                <div class="col-sm-8 col-md-8 col-xl-8">
+                    <div class="form-control noborder text-left">
+                        @Html.TextAreaFor(m => m.CurrentApprover.Comments, new { maxlength = 1000, @class = "form-control textarea-height", @rows = "4", @cols = "40", @data_val = "true", @data_val_required = "Please Enter Comment", data_toggle = "tooltip", title = "Max 1000 characters" })
+                        @Html.HiddenFor(x => x.CurrentApprover.Approver)
+                        @Html.HiddenFor(x => x.CurrentApprover.Role)
+                        @Html.HiddenFor(x => x.CurrentApprover.AssignDate)
+                        @Html.ValidationMessageFor(m => m.CurrentApprover.Comments, ResourceNames.OutwardRequest)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+       
+    </div>
+    }
+
+</div>
+

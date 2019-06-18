@@ -1,0 +1,408 @@
+2019-02-22 11:34:50,233 [9] INFO  - MVC - Application_Start_Done, 
+2019-02-22 11:34:50,420 [11] INFO  - MVC - Begin Request http://localhost:50988/, 
+2019-02-22 11:34:50,536 [11] INFO  - MVC - Begin Request http://localhost:50988/, 
+2019-02-22 11:34:51,002 [10] ERROR - Id: cc4e1f4a-704d-45dc-a34e-6dd1cd8554f6
+2019-02-22 11:34:51,002 [9] ERROR - Id: 3a2b98d9-cb86-4d7b-b4b3-1e44c723c40d
+2019-02-22 11:34:51,004 [9] ERROR - StatusCode: 200
+2019-02-22 11:34:51,005 [9] ERROR - Controller: 
+2019-02-22 11:34:51,006 [9] ERROR - Action: 
+2019-02-22 11:34:51,003 [10] ERROR - StatusCode: 200
+2019-02-22 11:34:51,009 [10] ERROR - Controller: 
+2019-02-22 11:34:51,011 [10] ERROR - Action: 
+2019-02-22 11:34:51,012 [10] ERROR - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at BEL.MaterialTrackingWorkflow.BaseController.get_SPCurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 78
+   at BEL.MaterialTrackingWorkflow.BaseController.get_CurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 119
+   at BEL.MaterialTrackingWorkflow.Controllers.OutwardRequestController.Index(Int32 id) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\OutwardRequest\OutwardRequestController.cs:line 28
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2019-02-22 11:34:51,007 [9] ERROR - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at BEL.MaterialTrackingWorkflow.BaseController.get_SPCurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 78
+   at BEL.MaterialTrackingWorkflow.BaseController.get_CurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 119
+   at BEL.MaterialTrackingWorkflow.Controllers.OutwardRequestController.Index(Int32 id) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\OutwardRequest\OutwardRequestController.cs:line 28
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2019-02-22 11:34:51,055 [9] ERROR - Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+System.InvalidCastException: Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+   at BEL.MaterialTrackingWorkflow.MvcApplication.Application_Error(Object sender, EventArgs e) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Global.asax.cs:line 83
+2019-02-22 11:34:51,055 [10] ERROR - Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+System.InvalidCastException: Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+   at BEL.MaterialTrackingWorkflow.MvcApplication.Application_Error(Object sender, EventArgs e) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Global.asax.cs:line 83
+2019-02-22 11:38:18,840 [11] INFO  - MVC - Begin Request http://localhost:50988/, 
+2019-02-22 11:38:18,840 [12] INFO  - MVC - Application_Start_Done, 
+2019-02-22 11:38:19,263 [9] ERROR - Id: 151a6597-af35-408d-b4ee-d3be9aa1e5f2
+2019-02-22 11:38:19,265 [9] ERROR - StatusCode: 200
+2019-02-22 11:38:19,266 [9] ERROR - Controller: 
+2019-02-22 11:38:19,267 [9] ERROR - Action: 
+2019-02-22 11:38:19,268 [9] ERROR - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at BEL.MaterialTrackingWorkflow.BaseController.get_SPCurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 78
+   at BEL.MaterialTrackingWorkflow.BaseController.get_CurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 119
+   at BEL.MaterialTrackingWorkflow.Controllers.OutwardRequestController.Index(Int32 id) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\OutwardRequest\OutwardRequestController.cs:line 28
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2019-02-22 11:38:19,284 [9] ERROR - Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+System.InvalidCastException: Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+   at BEL.MaterialTrackingWorkflow.MvcApplication.Application_Error(Object sender, EventArgs e) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Global.asax.cs:line 83
+2019-02-22 11:38:19,954 [8] ERROR - Id: 8fb0b09d-34ad-4762-9246-58bb2bbd447f
+2019-02-22 11:38:19,955 [8] ERROR - StatusCode: 200
+2019-02-22 11:38:19,956 [8] ERROR - Controller: 
+2019-02-22 11:38:19,957 [8] ERROR - Action: 
+2019-02-22 11:38:19,959 [8] ERROR - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at BEL.MaterialTrackingWorkflow.BaseController.get_SPCurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 78
+   at BEL.MaterialTrackingWorkflow.BaseController.get_CurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 119
+   at BEL.MaterialTrackingWorkflow.Controllers.OutwardRequestController.Index(Int32 id) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\OutwardRequest\OutwardRequestController.cs:line 28
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2019-02-22 11:38:19,970 [8] ERROR - Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+System.InvalidCastException: Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+   at BEL.MaterialTrackingWorkflow.MvcApplication.Application_Error(Object sender, EventArgs e) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Global.asax.cs:line 83
+2019-02-22 11:38:20,046 [11] INFO  - MVC - Begin Request http://localhost:50988/, 
+2019-02-22 11:49:30,153 [25] INFO  - MVC - Application_Start_Done, 
+2019-02-22 11:49:30,166 [24] INFO  - MVC - Begin Request http://localhost:50988/, 
+2019-02-22 11:49:30,265 [29] ERROR - Id: bf752b7a-f83f-4725-a29d-4547534a5e4a
+2019-02-22 11:49:30,266 [29] ERROR - StatusCode: 200
+2019-02-22 11:49:30,267 [29] ERROR - Controller: 
+2019-02-22 11:49:30,267 [29] ERROR - Action: 
+2019-02-22 11:49:30,269 [29] ERROR - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at BEL.MaterialTrackingWorkflow.BaseController.get_SPCurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 78
+   at BEL.MaterialTrackingWorkflow.BaseController.get_CurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 119
+   at BEL.MaterialTrackingWorkflow.Controllers.OutwardRequestController.Index(Int32 id) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\OutwardRequest\OutwardRequestController.cs:line 28
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2019-02-22 11:49:30,281 [29] ERROR - Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+System.InvalidCastException: Unable to cast object of type 'System.NullReferenceException' to type 'System.Web.HttpException'.
+   at BEL.MaterialTrackingWorkflow.MvcApplication.Application_Error(Object sender, EventArgs e) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Global.asax.cs:line 83
+2019-02-22 11:49:54,744 [25] INFO  - MVC - Begin Request http://localhost:50988/, 
+2019-02-22 11:49:54,760 [29] INFO  - MVC - Application_Start_Done, 
+2019-02-22 11:49:58,850 [21] ERROR - Id: 7fd5b245-8920-4daf-9ff2-6f84440e8cc3
+2019-02-22 11:49:58,851 [21] ERROR - StatusCode: 200
+2019-02-22 11:49:58,852 [21] ERROR - Controller: 
+2019-02-22 11:49:58,853 [21] ERROR - Action: 
+2019-02-22 11:49:58,854 [21] ERROR - User cannot be found.
+Microsoft.SharePoint.Client.ServerException: User cannot be found.
+   at Microsoft.SharePoint.Client.ClientRequest.ProcessResponseStream(Stream responseStream)
+   at Microsoft.SharePoint.Client.ClientRequest.ProcessResponse()
+   at Microsoft.SharePoint.Client.ClientRequest.ExecuteQueryToServer(ChunkStringBuilder sb)
+   at Microsoft.SharePoint.Client.ClientRequest.ExecuteQuery()
+   at Microsoft.SharePoint.Client.ClientRuntimeContext.ExecuteQuery()
+   at Microsoft.SharePoint.Client.ClientContext.ExecuteQuery()
+   at BEL.MaterialTrackingWorkflow.BusinessLayer.InwardRequestBusinessLayer.getUSerDetail(Int32 id) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\BusinessLayer\InwardRequestBusinessLayer.cs:line 482
+   at BEL.MaterialTrackingWorkflow.BaseController.get_CurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 124
+   at BEL.MaterialTrackingWorkflow.Controllers.OutwardRequestController.Index(Int32 id) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\OutwardRequest\OutwardRequestController.cs:line 28
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2019-02-22 11:49:58,878 [21] ERROR - User cannot be found.
+Microsoft.SharePoint.Client.ServerException: User cannot be found.
+   at Microsoft.SharePoint.Client.ClientRequest.ProcessResponseStream(Stream responseStream)
+   at Microsoft.SharePoint.Client.ClientRequest.ProcessResponse()
+   at Microsoft.SharePoint.Client.ClientRequest.ExecuteQueryToServer(ChunkStringBuilder sb)
+   at Microsoft.SharePoint.Client.ClientRequest.ExecuteQuery()
+   at Microsoft.SharePoint.Client.ClientRuntimeContext.ExecuteQuery()
+   at Microsoft.SharePoint.Client.ClientContext.ExecuteQuery()
+   at BEL.MaterialTrackingWorkflow.BusinessLayer.InwardRequestBusinessLayer.getUSerDetail(Int32 id) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\BusinessLayer\InwardRequestBusinessLayer.cs:line 482
+   at BEL.MaterialTrackingWorkflow.BaseController.get_CurrentUser() in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\BaseController.cs:line 124
+   at BEL.MaterialTrackingWorkflow.Controllers.OutwardRequestController.Index(Int32 id) in E:\Synoverge-New\Synoverge\22-Feb-19-MT\BEL.MaterialTracking\BEL.MaterialTrackingWorkflow\Controllers\OutwardRequest\OutwardRequestController.cs:line 28
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2019-02-22 11:51:58,858 [25] INFO  - MVC - Begin Request http://localhost:50988/, 
+2019-02-22 11:51:58,858 [34] INFO  - MVC - Application_Start_Done, 
+2019-02-22 11:52:05,713 [34] INFO  - WCF - Called Helper.IsGroupMember true, 
+2019-02-22 11:52:05,713 [11] INFO  - WCF - Helper.GetButtons for role 'Creator', appName='Material Tracking', formName='Outward Assembled Request Form', 
+2019-02-22 11:52:05,714 [25] INFO  - WCF - Helper GetFormData Condition passed for appname=Material Tracking, formNameOutward Assembled Request Form, User Id=23, 
+2019-02-22 11:52:05,713 [12] INFO  - WCF - Called Helper GetFormData, 
+2019-02-22 11:52:10,353 [25] INFO  - WCF - Called Helper.GetEnableSectionNames {"Tester Section":true}, 
+2019-02-22 11:52:10,383 [34] INFO  - WCF - Get All SLA Matrix Data  from Sharepoint root Site, 
+2019-02-22 11:52:34,340 [25] INFO  - WCF - called Helper.GetFormData, 
+2019-02-22 11:52:35,386 [25] INFO  - WCF - Helper.GetNameFromPersonField, String="Clover Sharepoint 1"
+2019-02-22 11:52:35,386 [11] INFO  - WCF - Helper.GetNameFromPersonField, String="Collab App Support-3"
+2019-02-22 11:52:35,386 [12] INFO  - WCF - Helper.GetNameFromPersonField, String="Collab App Support-1"
+2019-02-22 11:52:35,386 [34] INFO  - WCF - Helper.GetNameFromPersonField, String="SharePoint Notifications"
+2019-02-22 11:52:35,387 [32] INFO  - WCF - Helper.GetNameFromPersonField, String="Collab App Support-2"
+2019-02-22 11:52:36,451 [12] INFO  - WCF - Get All Buttons from Sharepoint, 
+2019-02-22 11:52:36,451 [32] INFO  - WCF - Helper.GetAllButtons, 
+2019-02-22 11:52:44,759 [29] ERROR - Proposed By Alias is null so not authorised
+2019-02-22 11:52:44,868 [32] INFO  - WCF - Helper.GetButtons for role 'Creator', appName='Material Tracking', formName='Outward Assembled Request Form', status='', other params={}, 
+2019-02-22 11:52:45,025 [32] INFO  - MVC - Begin Request http://localhost:50988/Master/NotAuthorize, 
+2019-02-22 11:52:53,398 [11] INFO  - MVC - Begin Ajax Request http://localhost:50988/__browserLink/requestData/7925f602fa20472b8f0b7e0239b69eae?version=2, 
+2019-02-22 11:54:46,715 [35] INFO  - MVC - Application_Start_Done, 
+2019-02-22 11:54:46,715 [11] INFO  - MVC - Begin Request http://localhost:50988/, 
+2019-02-22 11:54:53,035 [11] INFO  - WCF - Called Helper.IsGroupMember true, 
+2019-02-22 11:54:53,035 [35] INFO  - WCF - Helper GetFormData Condition passed for appname=Material Tracking, formNameOutward Assembled Request Form, User Id=31, 
+2019-02-22 11:54:53,035 [30] INFO  - WCF - Called Helper GetFormData, 
+2019-02-22 11:54:53,049 [27] INFO  - WCF - Helper.GetButtons for role 'Creator', appName='Material Tracking', formName='Outward Assembled Request Form', 
+2019-02-22 11:55:00,269 [11] INFO  - WCF - Called Helper.GetEnableSectionNames {"Tester Section":true}, 
+2019-02-22 11:55:00,293 [35] INFO  - WCF - Get All SLA Matrix Data  from Sharepoint root Site, 
+2019-02-22 11:55:25,051 [26] INFO  - WCF - called Helper.GetFormData, 
+2019-02-22 11:55:26,007 [11] INFO  - WCF - Helper.GetNameFromPersonField, String="Clover Sharepoint 1"
+2019-02-22 11:55:26,017 [21] INFO  - WCF - Helper.GetNameFromPersonField, String="Collab App Support-3"
+2019-02-22 11:55:26,017 [26] INFO  - WCF - Helper.GetNameFromPersonField, String="Collab App Support-1"
+2019-02-22 11:55:26,017 [22] INFO  - WCF - Helper.GetNameFromPersonField, String="SharePoint Notifications"
+2019-02-22 11:55:26,017 [11] INFO  - WCF - Helper.GetNameFromPersonField, String="Collab App Support-2"
+2019-02-22 11:55:26,961 [11] INFO  - WCF - Helper.GetAllButtons, 
+2019-02-22 11:55:26,961 [27] INFO  - WCF - Get All Buttons from Sharepoint, 
+2019-02-22 11:55:33,878 [11] INFO  - WCF - Helper.GetButtons for role 'Creator', appName='Material Tracking', formName='Outward Assembled Request Form', status='', other params={}, 
+2019-02-22 11:55:48,136 [35] INFO  - MVC - Begin Ajax Request http://localhost:50988/__browserLink/requestData/6fdbf6afdcad4b7fbb1e82d45b3191cf?version=2, 
+2019-02-22 12:00:47,927 [22] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:00:48,005 [27] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:05:48,031 [29] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:05:48,031 [22] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:10:48,955 [21] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:10:48,955 [27] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:15:49,926 [21] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:15:49,926 [31] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:20:50,939 [29] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:20:50,939 [26] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:25:51,967 [31] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:25:51,967 [27] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:30:52,931 [26] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:30:52,931 [27] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:35:52,960 [21] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:35:52,960 [33] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:40:52,980 [22] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:40:52,980 [28] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:45:53,948 [10] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:45:53,948 [22] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:50:54,962 [22] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:50:54,962 [37] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 12:55:55,945 [44] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 12:55:55,960 [37] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:00:56,967 [47] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:00:56,967 [37] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:05:57,950 [41] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:05:57,950 [37] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:10:58,970 [37] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:10:58,970 [48] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:15:59,970 [31] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:15:59,970 [41] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:21:00,976 [37] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:21:00,976 [41] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:26:01,979 [31] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:26:01,979 [51] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:31:03,059 [46] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:31:03,059 [37] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:36:03,973 [50] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:36:03,973 [49] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:41:04,981 [46] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:41:04,981 [51] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:46:05,983 [31] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:46:05,983 [51] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:51:06,994 [40] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:51:06,994 [41] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 13:56:07,985 [37] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 13:56:07,985 [48] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:01:08,980 [40] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:01:08,980 [51] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:06:09,995 [51] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:06:09,995 [48] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:11:10,987 [40] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:11:10,987 [46] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:16:11,983 [46] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:16:11,983 [47] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:21:12,992 [48] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:21:12,992 [37] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:26:14,003 [48] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:26:14,003 [37] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:31:14,999 [46] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:31:15,011 [31] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:36:15,098 [40] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:36:15,098 [49] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:41:16,001 [47] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:41:16,001 [40] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:46:17,019 [41] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:46:17,019 [37] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:51:18,016 [40] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 14:51:18,016 [47] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:56:19,008 [49] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 14:56:19,008 [31] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:01:20,013 [37] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:01:20,013 [47] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:06:21,002 [37] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:06:21,017 [46] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:11:22,017 [47] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:11:22,032 [31] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:16:23,004 [48] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:16:23,019 [31] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:21:24,033 [47] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:21:24,033 [40] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:26:25,036 [41] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:26:25,036 [17] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:31:26,019 [38] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:31:26,034 [12] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:36:26,051 [17] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:36:26,051 [38] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:41:26,070 [14] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:41:26,082 [42] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:46:26,100 [12] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:46:26,114 [32] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:51:27,042 [32] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 15:51:27,042 [3] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:56:28,028 [40] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 15:56:28,037 [3] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:01:29,043 [8] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:01:29,043 [33] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:06:30,043 [53] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:06:30,043 [18] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:11:31,027 [60] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:11:31,039 [59] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:16:32,050 [54] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:16:32,050 [59] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:21:33,051 [59] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:21:33,051 [63] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:26:34,037 [70] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:26:34,037 [71] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:31:34,081 [72] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:31:34,081 [71] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:36:35,054 [75] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:36:35,066 [59] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:41:36,059 [83] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:41:36,071 [82] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:46:37,075 [84] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:46:37,075 [82] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:51:38,090 [87] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 16:51:38,090 [75] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:56:39,092 [84] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 16:56:39,092 [82] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:01:40,094 [81] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:01:40,094 [83] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:06:41,096 [82] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:06:41,096 [76] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:11:42,096 [72] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:11:42,096 [71] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:16:43,096 [71] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:16:43,096 [69] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:21:44,077 [65] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:21:44,089 [55] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:26:45,098 [61] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:26:45,098 [73] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:31:46,098 [56] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:31:46,098 [68] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:36:47,107 [52] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:36:47,107 [18] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:41:48,093 [33] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:41:48,107 [8] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:46:48,181 [20] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:46:48,181 [59] INFO  - MVC - System Name: L0873.bel.com, 
+2019-02-22 17:51:49,126 [10] INFO  - MVC - Begin Ajax Request http://localhost:50988/Master/KeepSessionAlive, 
+2019-02-22 17:51:49,126 [16] INFO  - MVC - System Name: L0873.bel.com, 

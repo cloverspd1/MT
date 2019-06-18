@@ -1,0 +1,57 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.Reports
+@model List<ReportDetails>
+
+<div class="panel-body grid-view" style="overflow-x:scroll;">
+    <table id="MTReports" class="table table-hover table-bordered someTable">
+        <thead>
+            <tr>
+                <th width="5%">@Html.ResourceValue("Grid_ProjectName", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_MaterialCategory", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_BU", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_ProductCategory", ResourceNames.Report)</th>
+                <th width="20%">@Html.ResourceValue("Grid_InwardID", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_InwardDate", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_SerialNo", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_MaterialType", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_MaterialLocation", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_Tester", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_TesterAssignedDate", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_IsOutwardDone", ResourceNames.Report)</th>
+                <th width="20%">@Html.ResourceValue("Grid_OutwardID", ResourceNames.Report)</th>
+                <th width="5%">@Html.ResourceValue("Grid_OutwardDate", ResourceNames.Report)</th>
+            <tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (ReportDetails item in Model)
+                {
+                    <tr>
+                        <td>@item.ProjectName</td>
+                        <td>@item.MaterialCategory</td>
+                        <td>@item.BUName</td>
+                        <td>@item.ProductCategory</td>
+                        <td class="nowordwrap">@(item.InwardId == "View" ? string.Empty : item.InwardId)</td>
+                        <td>@item.InwardDate</td>
+                        <td>@item.SerialNumber</td>
+                        <td>@item.MaterialType</td>
+                        <td>@item.MaterialLocation</td>
+                        <td>@item.Tester</td>
+                        <td>@item.TesterAssignedDate</td>
+                        <td>@item.IsOutwardDone</td>
+                        <td class="nowordwrap">@(item.OutwardId == "View" ? string.Empty : item.OutwardId)</td>
+                        <td>@item.OutwardDate</td>
+                    </tr>
+                }
+            }
+            @*else
+            {
+                <tr>
+                    <td colspan="14" class="text-center text-danger">
+                        @Html.ResourceValue("Grid_Text_NoData", ResourceNames.Common)
+                    </td>
+                </tr>
+            }*@
+        </tbody>
+    </table>
+</div>

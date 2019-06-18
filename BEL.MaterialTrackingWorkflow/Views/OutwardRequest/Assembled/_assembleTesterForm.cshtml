@@ -1,0 +1,364 @@
+﻿@using BEL.MaterialTrackingWorkflow.Models.OutwardRequest
+@using BEL.CommonDataContract
+@using BEL.MaterialTrackingWorkflow.Models.Common
+@using BEL.MaterialTrackingWorkflow.Models.Master
+@using Newtonsoft.Json;
+@model TesterSection
+
+@{
+
+    EmployeeDetailsMaster approverusrelist = Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.EMPLOYEEMASTER)) as EmployeeDetailsMaster;
+
+    List<EmployeeDetailsMasterListItem> desingenggList = approverusrelist.Items.Where(x => (x as EmployeeDetailsMasterListItem).Role == OUTWARDRoles.HOD && (x as EmployeeDetailsMasterListItem).UserSelection == true).ToList().ConvertAll(p => (EmployeeDetailsMasterListItem)p);
+    desingenggList = Helper.splitUser(desingenggList);
+}
+
+
+
+
+
+
+<div id="divrecipient1Section">
+
+    @using (Ajax.BeginForm("SaveAssembleTesterSection", "OutwardRequest", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "loading",
+        OnFailure = "OnFailure",
+        OnSuccess = "OnSuccess",
+        OnBegin = "BeginClient"
+    }, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(m => m.ListDetails[0].ItemId)
+        @Html.HiddenFor(m => m.ListDetails[0].ListName)
+        @Html.HiddenFor(m => m.SectionName)
+        @Html.HiddenFor(m => m.ActionStatus)
+        @Html.HiddenFor(m => m.Status)
+        @Html.HiddenFor(m => m.WorkflowStatus)
+        @Html.Partial("_CurrentApprover", Model.CurrentApprover ?? new ApplicationStatus())
+        @Html.Partial("_ApproversList", Model.ApproversList)
+        @Html.AntiForgeryToken()
+
+        //HOD Action (Approve or Rework) for disable form for while sent back with approve action
+        @Html.HiddenFor(m => m.Action)
+        bool disableForm = false;
+        if (!string.IsNullOrWhiteSpace(Model.Action) && Model.Action == "Approve" && Model.Status == "Sent Back")
+        {
+            disableForm = true;
+        }
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        @Html.LabelFor(m => m.ProposedBy, ResourceNames.OutwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @(string.IsNullOrEmpty(Model.ProposedByName) ? ViewBag.UserName : Model.ProposedByName)
+                            @Html.Hidden("ProposedBy", string.IsNullOrEmpty(Model.ProposedBy) ? (string)ViewBag.UserID : Model.ProposedBy)
+                            @Html.Hidden("ProposedByName", string.IsNullOrEmpty(Model.ProposedByName) ? (string)ViewBag.UserName : Model.ProposedByName)
+                            @Html.Hidden("ProposedByAlise", string.IsNullOrEmpty(Model.ProposedByName) ? (string)ViewBag.UserName : Model.ProposedByName)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        @Html.LabelFor(m => m.RequestDate, ResourceNames.OutwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @(Model.RequestDate)
+                            @Html.Hidden("RequestDate", Model.RequestDate)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        if (!string.IsNullOrEmpty(Model.OutwardId) && Model.OutwardId != "View")
+        {
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">
+                            @Html.LabelFor(m => m.OutwardId, ResourceNames.OutwardRequest)
+                        </label>
+                        <div class="col-md-8 ">
+                            <div class="form-control noborder">
+                                <span class="text-danger" id="ReferenceNo">
+                                    <b>
+                                        @Html.DisplayFor(m => m.OutwardId, ResourceNames.OutwardRequest)
+                                        @Html.HiddenFor(m => m.OutwardId)
+                                        @Html.HiddenFor(m => m.Title)
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">
+                            @Html.LabelFor(m => m.Status, ResourceNames.OutwardRequest)
+                        </label>
+                        <div class="col-md-8 ">
+                            <div class="form-control noborder">
+                                <span class="text-danger" id="Status">
+                                    <b>
+                                        @(string.IsNullOrEmpty(Model.WorkflowStatus) ? Html.ResourceValue("Text_New", ResourceNames.Common) : Model.WorkflowStatus)
+                                    </b>
+                                </span>
+                                @Html.HiddenFor(m => m.Status)
+                                @Html.HiddenFor(m => m.WorkflowStatus)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.TypeofMaterial, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @if (disableForm)
+                            {
+                                @(!string.IsNullOrWhiteSpace(Model.TypeofMaterial) ? Model.TypeofMaterial : "")
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.TypeofMaterial, new SelectList((Model.MasterData.FirstOrDefault(x => x.NameOfMaster.Equals(MaterialTrackingListNames.TYPEOFMATERIALMASTER)) as TypeofMaterialMaster).Items, "Value", "Title"), "Select", new { @class = "form-control", @data_selected = Model.TypeofMaterial })
+                                @Html.ValidationMessageFor(m => m.TypeofMaterial, ResourceNames.OutwardRequest)
+                            }
+                            @Html.HiddenFor(m => m.TypeofMaterial)
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.OutwardDate, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        @if (disableForm)
+                        {
+                            @(!string.IsNullOrWhiteSpace(Model.OutwardDate) ? Model.OutwardDate : "")
+                        }
+                        else
+                        {
+                            <div class="input-group date datepicker pastDisabled">
+                                @Html.TextBoxFor(m => m.OutwardDate, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                </span>
+                                @Html.ValidationMessageFor(m => m.OutwardDate, ResourceNames.OutwardRequest)
+                            </div>
+                        }
+                        @Html.HiddenFor(m => m.OutwardDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.MaterialCost, ResourceNames.OutwardRequest)
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="form-control noborder text-left">
+                            @if (disableForm)
+                            {
+                                @Model.MaterialCost
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.MaterialCost, new { maxLength = 10, @class = "form-control integeronly", data_toggle = "tooltip", title = "Max 10 digits" })
+                                @Html.ValidationMessageFor(m => m.MaterialCost, ResourceNames.OutwardRequest)
+                            }
+                            @Html.HiddenFor(m => m.MaterialCost)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.RecipientName, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @if (disableForm)
+                            {
+                                @(!string.IsNullOrWhiteSpace(Model.RecipientName) ? Model.RecipientName : "")
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.RecipientName, new { maxLength = 255, @class = "form-control", data_toggle = "tooltip", title = "Max 255 characters" })
+                                @Html.ValidationMessageFor(m => m.RecipientName, ResourceNames.OutwardRequest)
+                            }
+                            @Html.HiddenFor(m => m.RecipientName)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.ResourceValue("Assembled_Particulars", ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        <div class="form-control noborder">
+                            @if (disableForm)
+                            {
+                                @(!string.IsNullOrWhiteSpace(Model.Particulars) ? Model.Particulars : "")
+                            }
+                            else
+                            {
+                                @Html.TextAreaFor(m => m.Particulars, new { maxLength = 1000, @class = "form-control textarea-height", @rows = "4", @cols = "40", data_toggle = "tooltip", title = "Max 1000 characters" })
+                                @Html.ValidationMessageFor(m => m.Particulars)
+                            }
+                            @Html.HiddenFor(m => m.Particulars)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.LocationAddress, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        @if (disableForm)
+                        {
+                            @(!string.IsNullOrWhiteSpace(Model.LocationAddress) ? Model.LocationAddress : "")
+                        }
+                        else
+                        {
+                            @Html.TextAreaFor(m => m.LocationAddress, new { maxLength = 1000, @class = "form-control textarea-height", @rows = "4", @cols = "40", data_toggle = "tooltip", title = "Max 1000 characters" })
+                            @Html.ValidationMessageFor(m => m.LocationAddress, ResourceNames.OutwardRequest)
+                        }
+                        @Html.HiddenFor(m => m.LocationAddress)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+                        @Html.LabelFor(m => m.Comment, ResourceNames.OutwardRequest)
+                    </label>
+                    <div class="col-md-8 ">
+                        @if (disableForm)
+                        {
+                            @(!string.IsNullOrWhiteSpace(Model.Comment) ? Model.Comment : "")
+                        }
+                        else
+                        {
+                            @Html.TextAreaFor(m => m.Comment, new { maxLength = 1000, @class = "form-control textarea-height", @rows = "4", @cols = "40", data_toggle = "tooltip", title = "Max 1000 characters" })
+                            @Html.ValidationMessageFor(m => m.Comment, ResourceNames.OutwardRequest)
+                        }
+                        @Html.HiddenFor(m => m.Comment)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        <span class="text-danger text-default-light">*</span>
+
+                        @Html.LabelFor(m => m.HOD, ResourceNames.OutwardRequest)
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="form-control noborder text-left">
+                            @if (disableForm)
+                            {
+                                @(!string.IsNullOrWhiteSpace(Model.HODAlias) ? Model.HODAlias : "")
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.HOD, new SelectList((desingenggList).ToList(), "UserID", "AliasNames"), "Select", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.HOD, ResourceNames.OutwardRequest)
+                            }
+                            @Html.HiddenFor(m => m.HOD)
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        @Html.LabelFor(m => m.TesterAttachment, ResourceNames.OutwardRequest)
+                    </label>
+
+                    <div class="col-md-8 ">
+                        @if (disableForm)
+                        {
+                            if (!string.IsNullOrWhiteSpace(Model.TesterAttachment))
+                            {
+                                foreach (FileDetails file in JsonConvert.DeserializeObject<List<FileDetails>>(Model.TesterAttachment))
+                                {
+                                    @file.FileName
+                                    <div class="clearfix"></div>
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            <span class="text-danger text-default-light">
+                                Note: (Max. up to 2MB per file and you can upload maximum 10 files.)
+                            </span>
+                            <div id="AttachmentAssTester" data-appname="@SiteURLs.MTSITEURL">
+                            </div>
+                            @Html.TextBoxFor(m => m.TesterAttachment, new { @class = "notvisible" })
+                            @Html.ValidationMessageFor(m => m.TesterAttachment, ResourceNames.OutwardRequest)
+                        }
+                        @Html.HiddenFor(m => m.TesterAttachment)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+
+            </div>
+        </div>
+    }
+
+</div>

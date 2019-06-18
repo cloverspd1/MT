@@ -1,0 +1,90 @@
+﻿namespace BEL.MaterialTrackingWorkflow.Models.Master
+{
+    using BEL.CommonDataContract;
+    using BEL.MaterialTrackingWorkflow.Models.Common;
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
+
+    /// <summary>
+    ///  Declaration Text Master
+    /// </summary>
+    /// <seealso cref="BEL.CommonDataContract.IMaster" />
+    [DataContract, Serializable]
+    public class DeclarationTextMaster : IMaster
+    {
+        /// <summary>
+        /// Gets or sets the name of master.
+        /// </summary>
+        /// <value>
+        /// The name of master.
+        /// </value>
+        [DataMember]
+        public string NameOfMaster
+        {
+            get { return Masters.DECLARATIONTEXTMASTER; }
+            set { }
+        }
+
+        /// <summary>
+        /// Gets or sets the scope.
+        /// </summary>
+        /// <value>
+        /// The scope.
+        /// </value>
+        [DataMember]
+        public string Scope
+        {
+            get { return ListScope.LOCAL; }
+            set { }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the list.
+        /// </summary>
+        /// <value>
+        /// The name of the list.
+        /// </value>
+        [DataMember]
+        public string ListName
+        {
+            get { return MaterialTrackingListNames.DECLARATIONTEXTMASTER; }
+            set { }
+        }
+
+        /// <summary>
+        /// Gets or sets the master items.
+        /// </summary>
+        /// <value>
+        /// The master items.
+        /// </value>
+        [DataMember]
+        public List<IMasterItem> Items { get; set; }
+
+        /// <summary>
+        /// Gets or sets the caching interval in HRS.
+        /// </summary>
+        /// <value>
+        /// The caching interval in HRS.
+        /// </value>
+        [DataMember]
+        public int CachingIntervalInHrs
+        {
+            get { return 24; }
+            set { }
+        }
+
+        /// <summary>
+        /// Gets or sets the type of the item.
+        /// </summary>
+        /// <value>
+        /// The type of the item.
+        /// </value>
+        [DataMember]
+        public Type ItemType
+        {
+            get { return typeof(DeclarationTextMasterListItem); }
+            set { }
+        }
+    }
+}
